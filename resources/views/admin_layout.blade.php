@@ -337,13 +337,13 @@
 						<li><a href="{{URL::to('/dashboard')}}"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard</span></a></li>
 						<li><a href="{{URL::to('/all_cat')}}"><i class="icon-envelope"></i><span class="hidden-tablet"> All Catrgory</span></a></li>
 						<li><a href="{{URL::to('/add_cat')}}"><i class="icon-tasks"></i><span class="hidden-tablet"> Add Category</span></a></li>
-						<li><a href="ui.html"><i class="icon-eye-open"></i><span class="hidden-tablet"> All Brands</span></a></li>
-						<li><a href="widgets.html"><i class="icon-dashboard"></i><span class="hidden-tablet"> Add Brands</span></a></li>
+						<li><a href="{{URL::to('/all_man')}}"><i class="icon-eye-open"></i><span class="hidden-tablet"> All Manufactures</span></a></li>
+						<li><a href="{{URL::to('/add_man')}}"><i class="icon-dashboard"></i><span class="hidden-tablet"> Add Manufacture</span></a></li>
 						<li>
 							<a class="dropmenu" href="#"><i class="icon-folder-close-alt"></i><span class="hidden-tablet"> Product</span><span class="label label-important"> new </span></a>
 							<ul>
-								<li><a class="submenu" href="submenu.html"><i class="icon-file-alt"></i><span class="hidden-tablet"> Add Product</span></a></li>
-								<li><a class="submenu" href="submenu2.html"><i class="icon-file-alt"></i><span class="hidden-tablet"> All Products</span></a></li>
+								<li><a class="submenu" href="all_products"><i class="icon-file-alt"></i><span class="hidden-tablet"> All Product</span></a></li>
+								<li><a class="submenu" href="add_product"><i class="icon-file-alt"></i><span class="hidden-tablet"> Add Products</span></a></li>
 							</ul>
 						</li>
 						<li><a href ="form.html"><i class="icon-edit"></i><span class="hidden-tablet"> Slider</span></a></li>

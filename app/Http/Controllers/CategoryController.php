@@ -106,7 +106,7 @@ class CategoryController extends Controller
       if ($categoryUpdate) {
           Session::put('message', 'Publication status updated successfully!!');
       } else {
-          Session::put('message', 'Category was not updated!!');
+          Session::put('message', 'Publication Status was not updated!!');
       }
 
       return Redirect::to('/all_cat');
