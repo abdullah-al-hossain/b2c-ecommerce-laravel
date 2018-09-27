@@ -60,8 +60,8 @@ Products
           <td class="center">
             <form action="/edit_product_pub_stat" method="POST" style="display: inline-block; padding: 0px; margin: 0px;">
               {{ csrf_field() }}
-                <input type="hidden" name="product_id" value="{{$product->p_id}}"/>
-                <input type="hidden" name="publication_status" value="{{$product->pub_stat}}"/>
+                <input type="hidden" name="product_id" value="{{ $product->p_id }}"/>
+                <input type="hidden" name="publication_status" value="{{ $product->pub_stat }}"/>
                 <button type="submit" style="font-size: 30px;"
                 <?php
                 if ($product->pub_stat == 1) {

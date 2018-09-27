@@ -36,10 +36,10 @@ class CategoryController extends Controller
       $category['name'] = $request->category_name;
       $category['description'] = $request->category_description;
 
-      if ($request->publication_status == 'on' || $request->publication_status == 1) {
-          $category['publication_status'] = 1;
+      if ($request->pub_stat == 'on' || $request->pub_stat == 1) {
+          $category['pub_stat'] = 1;
       } else {
-        $category['publication_status'] = 0;
+        $category['pub_stat'] = 0;
       }
 
       DB::table('categories')->insert($category);
@@ -66,17 +66,17 @@ class CategoryController extends Controller
         $this->AdminAuthCheck();
         $categoryUpdate = Category::where('category_id', $request->category_id);
 
-        if ($request->publication_status == null) {
-          $publication_status = 0;
+        if ($request->pub_stat == null) {
+          $pub_stat = 0;
         } else {
-          $publication_status = 1;
+          $pub_stat = 1;
         }
 
-        //return $publication_status;
+        //return $pub_stat;
         $categoryUpdate->update([
             'name' => $request->input('category_name'),
             'description' => $request->input('category_description'),
-            'publication_status' => $publication_status,
+            'pub_stat' => $pub_stat,
         ]);
 
         if ($categoryUpdate) {
@@ -95,17 +95,17 @@ class CategoryController extends Controller
       $this->AdminAuthCheck();
       $categoryUpdate = Category::where('category_id', $request->category_id);
 
-      //return $categoryUpdate->publication_status;
+      //return $categoryUpdate->pub_stat;
 
-      if ($request->publication_status == 1) {
-        $publication_status = 0;
+      if ($request->pub_stat == 1) {
+        $pub_stat = 0;
       } else {
-        $publication_status = 1;
+        $pub_stat = 1;
       }
 
-      //return $publication_status;
+      //return $pub_stat;
       $categoryUpdate->update([
-          'publication_status' => $publication_status,
+          'pub_stat' => $pub_stat,
       ]);
 
       if ($categoryUpdate) {

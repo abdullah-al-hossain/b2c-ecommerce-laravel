@@ -1,6 +1,6 @@
 @extends('admin_layout')
 @section('title')
-Categories
+Sliders
 @endsection
 
 @section('admin_content')
@@ -16,7 +16,7 @@ Categories
 <div class="row-fluid sortable">
   <div class="box span12">
     <div class="box-header" data-original-title>
-      <h2><i class="halflings-icon user"></i><span class="break"></span>All Categories</h2>
+      <h2><i class="halflings-icon user"></i><span class="break"></span>All products</h2>
       <div class="box-icon">
         <a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
         <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -24,25 +24,24 @@ Categories
       </div>
     </div>
     <div class="box-content">
-      <table class="table table-striped table-bordered bootstrap-datatable datatable">
+      <table class="table table-responsive table-striped table-bordered bootstrap-datatable datatable">
         <thead>
           <tr>
-            <th>Category Id</th>
-            <th>Category Name</th>
-            <th>Category Description</th>
+            <th>Slider ID</th>
+            <th>Slider Images</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-        @foreach($categories as $category)
+        @foreach($sliders as $slider)
         <tr>
-          <td>{{ $category->category_id }}</td>
-          <td>{{ $category->name }}</td>
-          <td style="max-width: 500px;">{{ $category->description }}</td>
+          <td>{{ $slider->slider_id }}</td>
+          <td><img class="img-responsive" style="height: 150px; width: 300px;" src="{{ $slider->slider_image }}" alt="slider image"></td>
+
           <td class="center">
             <?php
-            if ($category->pub_stat == 1) {
+            if ($slider->pub_stat == 1) {
               echo '<span class="label label-success">Active</span>';
             } else {
               echo '<span class="label label-danger">Inactive</span>';
@@ -51,13 +50,13 @@ Categories
              ?>
           </td>
           <td class="center">
-            <form action="/edit_cat_pub_stat" method="POST" style="display: inline-block; padding: 0px; margin: 0px;">
+            <form action="/edit_slider_pub_stat" method="POST" style="display: inline-block; padding: 0px; margin: 0px;">
               {{ csrf_field() }}
-                <input type="hidden" name="category_id" value="{{$category->category_id}}"/>
-                <input type="hidden" name="pub_stat" value="{{$category->pub_stat}}"/>
+                <input type="hidden" name="slider_id" value="{{$slider->slider_id}}"/>
+                <input type="hidden" name="pub_stat" value="{{$slider->pub_stat}}"/>
                 <button type="submit" style="font-size: 30px;"
                 <?php
-                if ($category->pub_stat == 1) {
+                if ($slider->pub_stat == 1) {
                   echo 'class="btn label-danger"';
                 } else {
                   echo 'class="btn btn-success"';
@@ -67,7 +66,7 @@ Categories
                 >
                   <i
                   <?php
-                  if ($category->pub_stat == 1) {
+                  if ($slider->pub_stat == 1) {
                     echo 'class="halflings-icon white thumbs-down"';
                   } else {
                     echo 'class="halflings-icon white thumbs-up"';
@@ -76,11 +75,8 @@ Categories
                   ></i>
                 </button>
             </form>
-            <a class="btn btn-info" href='/edit_cat/{{ $category->category_id}}'>
-              <i class="halflings-icon white edit"></i>
-            </a>
             <!-- **************** -->
-            <a class="btn btn-danger" href='/delete_cat/{{ $category->category_id}}' id="delete"><i class="halflings-icon white trash"></i></a>
+            <a class="btn btn-danger" href='/delete_slider/{{ $slider->slider_id}}' id="delete"><i class="halflings-icon white trash"></i></a>
           </td>
         </tr>
         @endforeach

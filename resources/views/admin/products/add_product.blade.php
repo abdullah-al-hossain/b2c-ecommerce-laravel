@@ -18,7 +18,7 @@ Add Product
 <div class="row-fluid sortable">
   <div class="box span12">
     <div class="box-header" data-original-title>
-      <h2><i class="halflings-icon edit"></i><span class="break"></span>Add Categries</h2>
+      <h2><i class="halflings-icon edit"></i><span class="break"></span>Add Products</h2>
       <div class="box-icon">
         <a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
         <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -40,7 +40,7 @@ Add Product
 						<label class="control-label" for="selectError3">Product Category</label>
             <?php
               $categories = DB::table('categories')
-                                                  ->where('publication_status', 1)
+                                                  ->where('pub_stat', 1)
                                                   ->get();
 
               $manufactures = DB::table('manufactures')

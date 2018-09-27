@@ -2,7 +2,13 @@
 
 //--- front-end part ---
 
-Route::get('', 'HomeController@index');
+  Route::get('', 'HomeController@index');
+
+// Show product by cateory
+
+  Route::get('/product_by_cat/{category_id?}', 'HomeController@show_product_by_category');
+  Route::get('/product_by_man/{man_id?}', 'HomeController@show_product_by_man');
+  Route::get('/view_product/{product_id?}', 'HomeController@show_product_details');
 
 
 
@@ -41,3 +47,11 @@ Route::get('', 'HomeController@index');
   Route::get('/delete_product/{product_id?}', 'ProductsController@delete');
   Route::get('/edit_product/{p_id?}', 'ProductsController@edit');
   Route::post('/edit_product', 'ProductsController@update');
+
+// slider routes go here
+
+  Route::get('/all_sliders', 'SlidersController@index');
+  Route::get('/add_slider', 'SlidersController@create');
+  Route::post('/add_slider', 'SlidersController@store');
+  Route::get('/delete_slider/{slider_id?}', 'SlidersController@delete');
+  Route::post('/edit_slider_pub_stat','SlidersController@public_status');

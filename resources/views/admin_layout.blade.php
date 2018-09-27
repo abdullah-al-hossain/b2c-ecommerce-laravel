@@ -346,7 +346,13 @@
 								<li><a class="submenu" href="add_product"><i class="icon-file-alt"></i><span class="hidden-tablet"> Add Products</span></a></li>
 							</ul>
 						</li>
-						<li><a href ="form.html"><i class="icon-edit"></i><span class="hidden-tablet"> Slider</span></a></li>
+						<li>
+							<a class="dropmenu" href="#"><i class="icon-folder-close-alt"></i><span class="hidden-tablet"> Slider</span><span class="label label-important"> new </span></a>
+							<ul>
+								<li><a class="submenu" href="all_sliders"><i class="icon-file-alt"></i><span class="hidden-tablet"> All Slider</span></a></li>
+								<li><a class="submenu" href="add_slider"><i class="icon-file-alt"></i><span class="hidden-tablet"> Add Slider</span></a></li>
+							</ul>
+						</li>
 						<li><a href="chart.html"><i class="icon-list-alt"></i><span class="hidden-tablet"> Social Link</span></a></li>
 						<li><a href="typography.html"><i class="icon-font"></i><span class="hidden-tablet"> Shop Name</span></a></li>
 						<li><a href="gallery.html"><i class="icon-picture"></i><span class="hidden-tablet"> Delivery Man</span></a></li>

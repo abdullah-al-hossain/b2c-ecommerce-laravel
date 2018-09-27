@@ -1,6 +1,6 @@
 @extends('admin_layout')
 @section('title')
-Edit Category
+Add Slider
 @endsection
 @section('admin_content')
 <ul class="breadcrumb">
@@ -18,7 +18,7 @@ Edit Category
 <div class="row-fluid sortable">
   <div class="box span12">
     <div class="box-header" data-original-title>
-      <h2><i class="halflings-icon edit"></i><span class="break"></span>Edit Category</h2>
+      <h2><i class="halflings-icon edit"></i><span class="break"></span>Add Categries</h2>
       <div class="box-icon">
         <a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
         <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -26,38 +26,25 @@ Edit Category
       </div>
     </div>
     <div class="box-content">
-      <form class="form-horizontal" method="POST" action="{{URL::to('/update_cat')}}">
+      <form class="form-horizontal" method="POST" action="{{URL::to('/add_slider')}}" enctype="multipart/form-data">
         {{ csrf_field() }}
-        <input type="hidden" name="category_id" value="{{ $category->category_id }}">
         <fieldset>
         <div class="control-group">
-          <label class="control-label" for="date01">Category Name</label>
-          <div class="controls">
-          <input type="text" class="input-xlarge" name="category_name" placeholder="Category Name" value="{{ $category->name }}"required>
-          </div>
-        </div>
-
-        <div class="control-group hidden-phone">
-          <label class="control-label" for="textarea2" required>Category Description</label>
-          <div class="controls">
-          <textarea class="cleditor" id="textarea2" rows="3" name="category_description" placeholder="Category Description" required>{{ $category->description }}</textarea>
-          </div>
-        </div>
+				  <label class="control-label" for="fileInput">Slider image:</label>
+				  <div class="controls">
+					<input class="input-file uniform_on" name="slider_image" id="fileInput" type="file">
+				  </div>
+				</div>
 
         <div class="control-group hidden-phone">
           <label class="control-label" for="textarea2">Publication Status</label>
           <div class="controls">
-          <input type="checkbox"
-          @if($category->pub_stat == 1)
-          checked
-          @else
-          @endif
-          name="pub_stat" value="1"/>
+          <input type="checkbox" name="publication_status" value="1"/>
           </div>
         </div>
 
         <div class="form-actions">
-          <button type="submit" class="btn btn-primary">Update</button>
+          <button type="submit" class="btn btn-primary">Add Slider</button>
           <button type="reset" class="btn">Cancel</button>
         </div>
         </fieldset>
