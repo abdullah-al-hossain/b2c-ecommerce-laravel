@@ -11,13 +11,8 @@ session_start();
 
 class AdminController extends Controller
 {
-    public function index() {
+    public function index() {      
       return view('admin_login');
-    }
-
-    public function show_dashboard()
-    {
-      return view('admin.dashboard');
     }
 
     public function log_in_dashboard(Request $request)
@@ -40,5 +35,15 @@ class AdminController extends Controller
       }
     }
 
+    public function AdminAuthCheck()
+    {
+      $adminId = Session::get('admin_id');
+
+      if ($adminId) {
+        return;
+      } else {
+        return Redirect::to('/admin')->send();
+      }
+    }
 
 }

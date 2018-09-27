@@ -14,6 +14,7 @@ class CategoryController extends Controller
   // THe index function to show all the item********************
     public function index()
     {
+      $this->AdminAuthCheck();
       $categories = Category::all();
 
       //return $categories;
@@ -22,6 +23,7 @@ class CategoryController extends Controller
 
     public function create()
     {
+      $this->AdminAuthCheck();
       return view('admin.categories.add_category');
     }
 
@@ -29,7 +31,7 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-
+      $this->AdminAuthCheck();
       $category = array();
       $category['name'] = $request->category_name;
       $category['description'] = $request->category_description;
@@ -54,12 +56,14 @@ class CategoryController extends Controller
 
     public function edit($category_id)
     {
+      $this->AdminAuthCheck();
       $category = Category::where('category_id', $category_id)->first();
       return view('admin.categories.edit', compact('category'));
     }
 
     public function update(Request $request)
     {
+        $this->AdminAuthCheck();
         $categoryUpdate = Category::where('category_id', $request->category_id);
 
         if ($request->publication_status == null) {
@@ -88,6 +92,7 @@ class CategoryController extends Controller
 
     public function public_status(Request $request)
     {
+      $this->AdminAuthCheck();
       $categoryUpdate = Category::where('category_id', $request->category_id);
 
       //return $categoryUpdate->publication_status;
@@ -116,6 +121,7 @@ class CategoryController extends Controller
 
     public function delete($category_id)
     {
+      $this->AdminAuthCheck();
       //return 'hello';
       if (DB::table('categories')->where('category_id', '=', $category_id)->delete()) {
           Session::put('message', 'Category deleted successfully!!');
@@ -124,5 +130,16 @@ class CategoryController extends Controller
       }
 
       return Redirect::to('/all_cat');
+    }
+
+    public function AdminAuthCheck()
+    {
+      $adminId = Session::get('admin_id');
+
+      if ($adminId) {
+        return;
+      } else {
+        return Redirect::to('/admin')->send();
+      }
     }
 }

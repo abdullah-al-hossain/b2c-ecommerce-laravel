@@ -13,19 +13,20 @@ class ManufacturesController extends Controller
 {
   public function index()
   {
+    $this->AdminAuthCheck();
     $manufactures = Manufacture::all();
-
     return view('admin.manufactures.index', compact('manufactures'));
   }
 
   public function create()
   {
+    $this->AdminAuthCheck();
     return view('admin.manufactures.add_man');
   }
 
   public function store(Request $request)
   {
-
+    $this->AdminAuthCheck();
     $manufacture = array();
     $manufacture['man_name'] = $request->manufacture_name;
     $manufacture['man_desc'] = $request->manufacture_description;
@@ -48,12 +49,14 @@ class ManufacturesController extends Controller
 
   public function edit($man_id)
   {
+    $this->AdminAuthCheck();
     $manufacture = Manufacture::where('man_id', $man_id)->first();
     return view('admin.manufactures.edit', compact('manufacture'));
   }
 
   public function update(Request $request)
   {
+      $this->AdminAuthCheck();
       $manUpdate = Manufacture::where('man_id', $request->man_id);
 
       if ($request->pub_stat == null) {
@@ -80,7 +83,7 @@ class ManufacturesController extends Controller
 
   public function public_status(Request $request)
   {
-
+    $this->AdminAuthCheck();
     $manUpdate = Manufacture::where('man_id', $request->man_id);
 
     if ($request->pub_stat == 1) {
@@ -104,7 +107,7 @@ class ManufacturesController extends Controller
 
   public function delete($man_id)
   {
-    //return 'hello';
+    $this->AdminAuthCheck();
     if (DB::table('manufactures')->where('man_id', '=', $man_id)->delete()) {
         Session::put('message', 'Manufacture deleted successfully!!');
     } else {
@@ -112,5 +115,16 @@ class ManufacturesController extends Controller
     }
 
     return Redirect::to('/all_man');
+  }
+
+  public function AdminAuthCheck()
+  {    
+    $adminId = Session::get('admin_id');
+
+    if ($adminId) {
+      return;
+    } else {
+      return Redirect::to('/admin')->send();
+    }
   }
 }

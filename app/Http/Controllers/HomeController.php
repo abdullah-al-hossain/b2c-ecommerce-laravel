@@ -16,6 +16,4 @@ class HomeController extends Controller
       $manufactures = Manufacture::all();
       return view('pages.home_content', compact('categories', 'manufactures', 'products'));
     }
-
-
 }

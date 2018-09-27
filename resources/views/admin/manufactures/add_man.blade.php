@@ -6,7 +6,7 @@ Add Manufacture
 <ul class="breadcrumb">
   <li>
     <i class="icon-home"></i>
-    <a href="index.html">Home</a>
+    <a href="/">Home</a>
     <i class="icon-angle-right"></i>
   </li>
   <li>
