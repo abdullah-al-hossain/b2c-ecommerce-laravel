@@ -1,14 +1,18 @@
 @extends('layout')
+@section('title')
+Home | E-Shopper
+@endsection
 @section('slider')
 @include('sliders')
 @endsection
 
 @section('content')
 <h2 class="title text-center">Features Items</h2>
+<div class="col-sm-12">
 @foreach($products as $product)
 <div class="col-sm-4">
-  <div class="product-image-wrapper">
-    <div class="single-products">
+  <div class="product-image-wrapper" style="border-radius: 30px; border: 1px solid #888;">
+    <div class="single-products" style="border-radius: 30px;">
         <div class="productinfo text-center">
           <img src="{{ $product->product_image }}" alt="Product Image" />
           <h2>${{ $product->product_price }}</h2>
@@ -17,22 +21,20 @@
         </div>
         <div class="product-overlay">
           <div class="overlay-content">
-            <h2>$56</h2>
-            <p>Easy Polo Black Edition</p>
             <a href="{{URL::to('/view_product/'.$product->p_id)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
           </div>
         </div>
     </div>
     <div class="choose">
-      <ul class="nav nav-pills nav-justified">
-        <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-        <li><a href="#"><i class="fa fa-plus-square"></i>View Item</a></li>
+      <ul class="nav nav-pills nav-justified" style="background: #ccc;">
+        <li><a href="#" style="color: #fff;"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+        <li><a href="{{URL::to('/view_product/'.$product->p_id)}}" style="color: #fff;"><i class="fa fa-plus-square"></i>View Item</a></li>
       </ul>
     </div>
   </div>
 </div>
 @endforeach
-
+</div>
 </div><!--features_items-->
 
 <div class="category-tab"><!--category-tab-->

@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Home | E-Shopper</title>
+    <title>
+      @yield('title')
+    </title>
     <link href="{{asset('frontend/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('frontend/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('frontend/css/prettyPhoto.css')}}" rel="stylesheet">
@@ -13,6 +15,11 @@
     <link href="{{asset('frontend/css/animate.css')}}" rel="stylesheet">
 	<link href="{{asset('frontend/css/main.css')}}" rel="stylesheet">
 	<link href="{{asset('frontend/css/responsive.css')}}" rel="stylesheet">
+  <style media="screen">
+    body {
+      background: #fff;
+    }
+  </style>
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -25,6 +32,10 @@
 </head><!--/head-->
 
 <body>
+  <?php
+  // We need this to check if the user is logged in or not
+        $user_id = Session::get('user_id');
+   ?>
 	<header id="header"><!--header-->
 		<div class="header_top"><!--header_top-->
 			<div class="container">
@@ -32,7 +43,7 @@
 					<div class="col-sm-6">
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
-								<li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
+								<li><a href="#"><i class="fa fa-phone"></i>+2 95 01 88 821</a></li>
 								<li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
 							</ul>
 						</div>
@@ -88,9 +99,14 @@
 							<ul class="nav navbar-nav">
 								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
 								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+								<li><a href="/show_cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                @if($user_id == NULL)
+                <li><a href="{{URL::to('/login_check')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+								<li><a href="/login_check"><i class="fa fa-lock"></i> Login</a></li>
+                @else
+								<li><a href="{{URL::to('/checkout')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                <li><a href="{{URL::to('/user_logout')}}"><i class="fa fa-lock"></i> Logout</a></li>
+                @endif
 							</ul>
 						</div>
 					</div>
@@ -113,15 +129,7 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="/" class="active">Home</a></li>
-								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Products</a></li>
-										<li><a href="product-details.html">Product Details</a></li>
-										<li><a href="checkout.html">Checkout</a></li>
-										<li><a href="cart.html">Cart</a></li>
-										<li><a href="login.html">Login</a></li>
-                                    </ul>
-                                </li>
+
 								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="blog.html">Blog List</a></li>
@@ -141,9 +149,7 @@
 				</div>
 			</div>
 		</div><!--/header-bottom-->
-	</header><!--/header-->
-  @yield('slider')
-	<!--/slider-->
+	</header>
 
 	<section>
 		<div class="container">
@@ -162,7 +168,6 @@
               @endif
 							@endforeach
 						</div><!--/category-products-->
-
 						<div class="brands_products"><!--brands_products-->
 							<h2>Manufacturers</h2>
 							<div class="brands-name">
@@ -190,6 +195,7 @@
 				</div>
 
 				<div class="col-sm-9 padding-right">
+            @yield('slider')
 					<div class="features_items"><!--features_items-->
             @yield('content')
           </div>

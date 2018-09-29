@@ -9,7 +9,19 @@
   Route::get('/product_by_cat/{category_id?}', 'HomeController@show_product_by_category');
   Route::get('/product_by_man/{man_id?}', 'HomeController@show_product_by_man');
   Route::get('/view_product/{product_id?}', 'HomeController@show_product_details');
+  Route::post('/add_to_cart', 'CartController@add_to_cart');
+  Route::get('/show_cart', 'CartController@show_cart');
+  Route::get('/delete_cart_item/{rowId?}', 'CartController@delete');
+  Route::post('/update_cart', 'CartController@update_cart');
 
+// checkout routes go here
+
+  Route::get('/login_check', 'CheckoutController@login_check');
+  Route::post('/user_reg', 'CheckoutController@user_reg');
+  Route::get('/checkout', 'CheckoutController@checkout');
+  Route::post('/save_shipping_details', 'CheckoutController@save_shipping_details');
+  Route::get('/user_logout', 'CheckoutController@logout');
+  Route::post('/user_login', 'CheckoutController@user_login');
 
 
   /// backend
