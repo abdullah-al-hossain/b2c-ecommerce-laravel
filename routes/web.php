@@ -2,7 +2,9 @@
 
 //--- front-end part ---
 
-  Route::get('', 'HomeController@index');
+  Route::get('/', 'HomeController@index');
+  Route::post('/products_by_range', 'HomeController@range');
+  Route::post('/search_products', 'HomeController@search');
 
 // Show product by cateory
 

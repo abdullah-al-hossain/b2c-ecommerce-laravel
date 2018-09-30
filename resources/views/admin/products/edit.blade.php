@@ -40,7 +40,7 @@ Edit Product
 						<label class="control-label" for="selectError3">Product Category</label>
             <?php
               $categories = DB::table('categories')
-                                                  ->where('publication_status', 1)
+                                                  ->where('pub_stat', 1)
                                                   ->get();
 
               $manufactures = DB::table('manufactures')
@@ -118,10 +118,12 @@ Edit Product
           </div>
         </div>
 
+        <input type="hidden" name="p_id" value="{{ $product->p_id }}">
+
         <div class="control-group hidden-phone">
           <label class="control-label" for="textarea2">Publication Status</label>
           <div class="controls">
-          <input type="checkbox" name="publication_status" value="1"
+          <input type="checkbox" name="pub_stat" value="1"
           @if($product->pub_stat == 1)
           checked
           @endif

@@ -1,20 +1,19 @@
 @extends('layout')
 @section('title')
-Product by Category
+Search Results
 @endsection
+
 @section('content')
 <h2 class="title text-center">Features Items</h2>
-@if($products_by_cat->count() == 0)
-  <h1 style="text-align:center; color: red;">Nothing to show in this category</h1>
-  <p style="text-align: center; font-size: 30px;"><a href="/">Click here to Go back to home!</a> </p>
-@endif
-@foreach($products_by_cat as $product)
+<div class="col-sm-12">
+@foreach($products as $product)
 <div class="col-sm-4">
   <div class="product-image-wrapper" style="border-radius: 30px; border: 1px solid #888;">
-    <div class="single-products">
+    <div class="single-products" style="border-radius: 30px;">
         <div class="productinfo text-center">
           <img src="{{ $product->product_image }}" alt="Product Image" />
-          <h2>${{ $product->product_price}}</h2>
+          <h4 style="color: #888; padding:0; margin:0;">{{ $product->product_name }}</h4>
+          <h2>${{ $product->product_price }}</h2>
           <p>{{ $product->short_desc}}</p>
           <a href="{{URL::to('/view_product/'.$product->p_id)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
         </div>
@@ -33,7 +32,7 @@ Product by Category
   </div>
 </div>
 @endforeach
-
+</div>
 </div><!--features_items-->
 
 <div class="category-tab"><!--category-tab-->

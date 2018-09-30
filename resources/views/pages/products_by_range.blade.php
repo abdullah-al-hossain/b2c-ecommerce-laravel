@@ -4,13 +4,13 @@ Product by Category
 @endsection
 @section('content')
 <h2 class="title text-center">Features Items</h2>
-@if($products_by_cat->count() == 0)
-  <h1 style="text-align:center; color: red;">Nothing to show in this category</h1>
+@if($products->count() == 0)
+  <h1 style="text-align:center; color: red;">No products found within the provided range.</h1>
   <p style="text-align: center; font-size: 30px;"><a href="/">Click here to Go back to home!</a> </p>
 @endif
-@foreach($products_by_cat as $product)
+@foreach($products as $product)
 <div class="col-sm-4">
-  <div class="product-image-wrapper" style="border-radius: 30px; border: 1px solid #888;">
+  <div class="product-image-wrapper">
     <div class="single-products">
         <div class="productinfo text-center">
           <img src="{{ $product->product_image }}" alt="Product Image" />
@@ -25,9 +25,9 @@ Product by Category
         </div>
     </div>
     <div class="choose">
-      <ul class="nav nav-pills nav-justified" style="background: #ccc;">
-        <li><a href="{{URL::to('/view_product/'.$product->p_id)}}" style="color: #fff;"><i class="fa fa-plus-square"></i>Add to cart</a></li>
-        <li><a href="{{URL::to('/view_product/'.$product->p_id)}}" style="color: #fff;"><i class="fa fa-plus-square"></i>View Item</a></li>
+      <ul class="nav nav-pills nav-justified">
+        <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+        <li><a href="{{URL::to('/view_product/'.$product->p_id)}}"><i class="fa fa-plus-square"></i>View Item</a></li>
       </ul>
     </div>
   </div>

@@ -84,7 +84,7 @@ Add Product
         <div class="control-group">
           <label class="control-label" for="date01">Product Price</label>
           <div class="controls">
-          <input type="text" class="input-xlarge" name="product_price" placeholder="Product Name" required>
+          <input type="text" class="input-xlarge" name="product_price" placeholder="Product Price" required>
           </div>
         </div>
 
@@ -98,7 +98,7 @@ Add Product
         <div class="control-group">
           <label class="control-label" for="date01">Product Size</label>
           <div class="controls">
-          <input type="text" class="input-xlarge" name="product_size" placeholder="Category Price" required>
+          <input type="text" class="input-xlarge" name="product_size" placeholder="Product Size" required>
           </div>
         </div>
 

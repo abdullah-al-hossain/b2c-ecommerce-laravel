@@ -31,7 +31,6 @@ class ProductsController extends Controller
     $this->AdminAuthCheck();
     $data = array();
 
-    $data['product_name'] = $request->name;
     $data['product_name'] = $request->product_name;
     $data['category_id'] = $request->category_id;
     $data['man_id'] = $request->man_id;
@@ -80,22 +79,26 @@ class ProductsController extends Controller
   public function update(Request $request)
   {
       $this->AdminAuthCheck();
-      $prodUpdate = Manufacture::where('man_id', $request->p_id)->first();
+      $prodUpdate = Product::where('p_id', $request->p_id);
 
-      return 1;
-
-      if ($request->pub_stat == null) {
+      if ($request->pub_stat == NULL) {
         $pub_stat = 0;
       } else {
         $pub_stat = 1;
       }
-
-      //return $pub_stat;
+      
       $prodUpdate->update([
-          'man_name' => $request->input('man_name'),
-          'man_desc' => $request->input('man_desc'),
+          'product_name' => $request->input('product_name'),
+          'category_id' => $request->input('category_id'),
+          'man_id' => $request->input('man_id'),
+          'short_desc' => $request->input('product_short_desc'),
+          'long_desc' => $request->input('product_long_desc'),
+          'product_price' => $request->input('product_price'),
+          'product_size' => $request->input('product_size'),
+          'product_color' => $request->input('product_color'),
           'pub_stat' => $pub_stat,
       ]);
+
 
       if ($prodUpdate) {
           Session::put('message', 'Product updated successfully!!');

@@ -44,8 +44,8 @@
 					<div class="col-sm-6">
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
-								<li><a href="#"><i class="fa fa-phone"></i>+2 95 01 88 821</a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+								<li><a href="#"><i class="fa fa-phone"></i>+8801533609794</a></li>
+								<li><a href="#"><i class="fa fa-envelope"></i> hello2441139abcd@gmail.com</a></li>
 							</ul>
 						</div>
 					</div>
@@ -68,11 +68,13 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-4">
-						<div class="logo pull-left">
-							<a href="index.html"><img src="images/home/logo.png" alt="" /></a>
+						<div class="logo pull-left" style="color: #45645e;">
+              <!-- <a href=""><b>ECommerce</b> <br/> <b>Website</b></a> -->
+
+							<a href="/"><img src="frontend/images/home/logo.png" alt="" /></a>
 						</div>
 						<div class="btn-group pull-right">
-							<div class="btn-group">
+							<!-- <div class="btn-group">
 								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
 									USA
 									<span class="caret"></span>
@@ -92,14 +94,18 @@
 									<li><a href="#">Canadian Dollar</a></li>
 									<li><a href="#">Pound</a></li>
 								</ul>
-							</div>
+							</div> -->
 						</div>
 					</div>
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-								<li><a href="/show_cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a href="/show_cart"><i class="fa fa-shopping-cart"></i> Cart
+                  @if( Cart::count() > 0)
+                  <span class="badge badge-light">{{ Cart::count() }}</span>
+                  @endif
+                </a></li>
                 @if($user_id == NULL)
                 <li><a href="{{URL::to('/login_check')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a href="/login_check"><i class="fa fa-lock"></i> Login</a></li>
@@ -136,18 +142,21 @@
 
 								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">Blog List</a></li>
-										<li><a href="blog-single.html">Blog Single</a></li>
+                                        <li><a href="#">Blog List</a></li>
+										<li><a href="#">Blog Single</a></li>
                                     </ul>
                                 </li>
-								<li><a href="404.html">404</a></li>
-								<li><a href="contact-us.html">Contact</a></li>
+								<li><a href="#">Contact</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-3">
 						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
+              <form action="/search_products" method="POST">
+                {{ csrf_field() }}
+                <input type="text" name="name" placeholder="Search Products ...">
+                <button type="submit" class="btn btn-default" style="outline-style: none;">Search</button>
+              </form>
 						</div>
 					</div>
 				</div>
@@ -177,7 +186,7 @@
 							<div class="brands-name">
 								<ul class="nav nav-pills nav-stacked">
                   @foreach($manufactures as $manufacture)
-									<li><a href="{{ URL::to('/product_by_man/'.$manufacture->man_id) }}"> <span class="pull-right">(50)</span>{{ $manufacture->man_name }}</a></li>
+									<li><a href="{{ URL::to('/product_by_man/'.$manufacture->man_id) }}">{{ $manufacture->man_name }}</a></li>
                   @endforeach
 								</ul>
 							</div>
@@ -186,8 +195,13 @@
 						<div class="price-range"><!--price-range-->
 							<h2>Price Range</h2>
 							<div class="well text-center">
-								 <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
-								 <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
+                <form class="" action="products_by_range" method="post">
+                  {{ csrf_field() }}
+                  <!-- <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br /> -->
+                  From $<input type="number" name="from" style="width: 90px;"><br> <br>To $<input type="number" name="to" style="width: 90px;">
+                  <br> <input class="btn btn-default" type="submit" value="Submit" style="margin-top: 15px;">
+                </form>
+
 							</div>
 						</div><!--/price-range-->
 
@@ -307,7 +321,7 @@
 					<div class="col-sm-3">
 						<div class="address">
 							<img src="{{asset('frontend/images/home/map.png')}}" alt="" />
-							<p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
+							<p>CUET, Raojan, Chittogong, Bangladesh</p>
 						</div>
 					</div>
 				</div>

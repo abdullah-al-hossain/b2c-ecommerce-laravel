@@ -15,12 +15,10 @@ class HomeController extends Controller
     public function index()
     {
       $products = DB::table('products')
-                                ->join('categories', 'products.category_id', '=', 'categories.category_id')
-                                ->join('manufactures', 'products.man_id', '=', 'manufactures.man_id')
-                                ->select('products.*', 'categories.name', 'manufactures.man_name')
-                                ->where('products.pub_stat', 1)
-                                ->limit(9)
-                                ->get();
+                                    ->where('products.pub_stat', 1)
+                                    ->limit(9)
+                                    ->get();
+
       $categories = DB::table('categories')->where('pub_stat', 1)->get();
       $manufactures = DB::table('manufactures')->where('pub_stat', 1)->get();
       $sliders = DB::table('sliders')->where('pub_stat', 1)->get();
@@ -71,4 +69,26 @@ class HomeController extends Controller
       return view('pages.view_product', compact('categories', 'manufactures', 'product'));
     }
 
+    public function range(Request $request)
+    {
+      $from = $request->from;
+      $to = $request->to;
+
+      $products = DB::table('products')
+                                    ->whereBetween('product_price', array($from, $to))
+                                    ->orderBy('product_price', 'asc')
+                                    ->get();
+
+      $categories = DB::table('categories')->where('pub_stat', 1)->get();
+      $manufactures = DB::table('manufactures')->where('pub_stat', 1)->get();;
+      return view('pages.products_by_range', compact('categories', 'manufactures', 'products'));
+    }
+
+    public function search(Request $request)
+    {
+      $products = Product::where('product_name', 'like', '%'.$request->name.'%')->get();
+      $categories = DB::table('categories')->where('pub_stat', 1)->get();
+      $manufactures = DB::table('manufactures')->where('pub_stat', 1)->get();;
+      return view('pages.search_products', compact('categories', 'manufactures', 'products'));
+    }
 }
