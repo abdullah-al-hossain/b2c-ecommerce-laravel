@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Session;
 use DB;
+use Cart;
 use Illuminate\Support\Facades\Redirect;
 session_start();
 
@@ -31,11 +32,15 @@ class CheckoutController extends Controller
       Session::put('user_name', $request->name);
 
       return Redirect::to('/checkout');
-
     }
 
     public function checkout()
     {
+      $this->UserAuthCheck();
+      if (Cart::total() < 1.00) {
+        return Redirect::to('/')
+                          ->with('message', 'You have nothing in your cart. Please buy something at first.');
+      }
       $categories = DB::table('categories')->where('pub_stat', 1)->get();
       $manufactures = DB::table('manufactures')->where('pub_stat', 1)->get();
       return view('pages.checkout', compact('categories', 'manufactures'));
@@ -43,13 +48,14 @@ class CheckoutController extends Controller
 
     public function save_shipping_details(Request $request)
     {
+      $this->UserAuthCheck();
       $data = array();
       $data['shipping_email'] = $request->shipping_email;
       $data['shipping_first_name'] = $request->shipping_first_name;
       $data['shipping_last_name'] = $request->shipping_last_name;
       $data['shipping_address'] = $request->shipping_address;
       $data['shipping_city'] = $request->shipping_city;
-      $data['ship_mobile_number'] = $request->shipping_mobile;
+      $data['mobile_number'] = $request->shipping_mobile;
 
       $sipping_id = DB::table('shippings')
                       ->insertGetId($data);
@@ -59,6 +65,7 @@ class CheckoutController extends Controller
 
     public function logout()
     {
+      $this->UserAuthCheck();
       Session::flush();
       return Redirect::to('/');
     }
@@ -71,7 +78,7 @@ class CheckoutController extends Controller
                                 ->where('email', $user_email)
                                 ->where('password', $user_pwd)
                                 ->first();
-                                
+
 
       if ($result) {
         Session::put('user_id', $result->uid);
@@ -84,5 +91,84 @@ class CheckoutController extends Controller
       }
     }
 
+    public function payment()
+    {
+      $this->UserAuthCheck();
+      $sid = Session::get('shipping_id');
 
+      if(!$sid) {
+          return Redirect::to('/')->with('message', 'You must checkout at first');
+      }
+      $categories = DB::table('categories')->where('pub_stat', 1)->get();
+      $manufactures = DB::table('manufactures')->where('pub_stat', 1)->get();
+      return view('pages.payment', compact('categories', 'manufactures'));
+    }
+
+    public function payment_insert(Request $request)
+    {
+      $this->UserAuthCheck();
+      $contents = Cart::content();
+      $payment_gateway = $request->payment_gateway;
+
+      $pdata = array();
+      $pdata['payment_method'] = $payment_gateway;
+      $pdata['payment_status'] = 'pending';
+
+      $payment_id = DB::table('payments')
+                          ->insertGetId($pdata);
+
+
+      $odata = array();
+      $odata['user_id'] = Session::get('user_id');
+      $odata['shipping_id'] = Session::get('shipping_id');
+      $odata['payment_id'] = $payment_id;
+      $odata['order_total'] = Cart::total();
+      $odata['order_status'] = 'pending';
+
+      $order_id = DB::table('orders')
+                        ->insertGetId($odata);
+
+      $odetails = array();
+
+      $contents = Cart::content();
+
+      foreach ($contents as $content) {
+        $odetails['order_id'] = $order_id;
+        $odetails['product_id'] = $content->id;
+        $odetails['product_name'] = $content->name;
+        $odetails['product_price'] = $content->price;
+        $odetails['product_sales_quantity'] = $content->qty;
+
+        DB::table('orderdetails')
+                                ->insert($odetails);
+      }
+
+      if ($payment_gateway == 'hcash') {
+          $message = 'hcash';
+          Cart::destroy();
+      } elseif ($payment_gateway == 'bkash') {
+          $message = 'bkash';
+          Cart::destroy();
+      } elseif ($payment_gateway == 'ppal') {
+          $message = 'ppal';
+          Cart::destroy();
+      }
+
+      Session::forget('shipping_id');
+
+      return Redirect::to('/')
+                        ->with('message', $message);
+    }
+
+    // The function you see below was created for the purpose to see if the user is logged in or not
+    public function UserAuthCheck()
+    {
+      $userId = Session::get('user_id');
+
+      if ($userId) {
+        return;
+      } else {
+        return Redirect::to('/login_check')->send();
+      }
+    }
 }

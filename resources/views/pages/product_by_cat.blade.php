@@ -1,5 +1,6 @@
 @extends('layout')
-@section('slider')
+@section('title')
+Product by Category
 @endsection
 @section('content')
 <h2 class="title text-center">Features Items</h2>

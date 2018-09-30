@@ -46,7 +46,7 @@ Add Category
         <div class="control-group hidden-phone">
           <label class="control-label" for="textarea2">Publication Status</label>
           <div class="controls">
-          <input type="checkbox" name="publication_status" value="1"/>
+          <input type="checkbox" name="pub_stat" value="1"/>
           </div>
         </div>
 

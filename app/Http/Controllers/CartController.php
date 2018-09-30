@@ -29,6 +29,11 @@ class CartController extends Controller
 
     public function show_cart()
     {
+      if (Cart::total() < 1.00) {
+        return Redirect::to('/')
+                          ->with('message', 'You have nothing in your cart. Please buy something at first.');
+      }
+
       $categories = DB::table('categories')->where('pub_stat', 1)->get();
       $manufactures = DB::table('manufactures')->where('pub_stat', 1)->get();
       return view('pages.add_to_cart', compact('categories', 'manufactures'));

@@ -32,7 +32,7 @@ Add Product
         <div class="control-group">
           <label class="control-label" for="date01">Product Name</label>
           <div class="controls">
-          <input type="text" class="input-xlarge" name="product_name" placeholder="Category Name" required>
+          <input type="text" class="input-xlarge" name="product_name" placeholder="Product Name" required>
           </div>
         </div>
 
@@ -70,21 +70,21 @@ Add Product
         <div class="control-group hidden-phone">
           <label class="control-label" for="textarea2" required>Product Short Description</label>
           <div class="controls">
-          <textarea class="cleditor" id="textarea2" rows="3" name="product_short_desc" placeholder="Category Description" required></textarea>
+          <textarea class="cleditor" id="textarea2" rows="3" name="product_short_desc" placeholder="Product short Description" required></textarea>
           </div>
         </div>
 
         <div class="control-group hidden-phone">
           <label class="control-label" for="textarea2" required>Product Long Description</label>
           <div class="controls">
-          <textarea class="cleditor" id="textarea2" rows="3" name="product_long_desc" placeholder="Category Description" required></textarea>
+          <textarea class="cleditor" id="textarea2" rows="3" name="product_long_desc" placeholder="Product Description" required></textarea>
           </div>
         </div>
 
         <div class="control-group">
           <label class="control-label" for="date01">Product Price</label>
           <div class="controls">
-          <input type="text" class="input-xlarge" name="product_price" placeholder="Category Name" required>
+          <input type="text" class="input-xlarge" name="product_price" placeholder="Product Name" required>
           </div>
         </div>
 
@@ -98,14 +98,14 @@ Add Product
         <div class="control-group">
           <label class="control-label" for="date01">Product Size</label>
           <div class="controls">
-          <input type="text" class="input-xlarge" name="product_size" placeholder="Category Name" required>
+          <input type="text" class="input-xlarge" name="product_size" placeholder="Category Price" required>
           </div>
         </div>
 
         <div class="control-group">
           <label class="control-label" for="date01">Product Color</label>
           <div class="controls">
-          <input type="text" class="input-xlarge" name="product_color" placeholder="Category Name" required>
+          <input type="text" class="input-xlarge" name="product_color" placeholder="Product Color" required>
           </div>
         </div>
 

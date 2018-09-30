@@ -23,10 +23,10 @@ Checkout
                 <input type="text" placeholder="Address*" name="shipping_address">
                 <input type="text" placeholder="Mobile No.*" name="shipping_mobile">
                 <input type="text" placeholder="City*" name="shipping_city">
-                <input type="submit" class="btn btn-default" value="Done">
+                <input type="submit" class="btn btn-default" value="Submit">
               </form>
             </div>
-            <div class="form-two">
+            <!-- <div class="form-two">
               <form method="POST" action="">
                 <input type="text" placeholder="Zip / Postal Code *">
                 <select>
@@ -56,7 +56,7 @@ Checkout
                 <input type="text" placeholder="Mobile Phone">
                 <input type="text" placeholder="Fax">
               </form>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

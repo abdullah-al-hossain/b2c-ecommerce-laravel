@@ -373,7 +373,7 @@
 				<?php
 	        $message = Session::get('message');
 	        if ($message) {
-						echo '<div class="alert alert-dismissable alert-succes" style="overflow: hidden;">
+						echo '<div class="alert alert-dismissable alert-success" style="overflow: hidden;">
 								<button type="button" class="close" data-dismiss="alert" aria-label="close">
 									<span aria-hidden="true">&times;</span>
 								</button>'.$message;

@@ -35,6 +35,7 @@
   <?php
   // We need this to check if the user is logged in or not
         $user_id = Session::get('user_id');
+        $shipping_id = Session::get('shipping_id');
    ?>
 	<header id="header"><!--header-->
 		<div class="header_top"><!--header_top-->
@@ -98,14 +99,17 @@
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="/show_cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                 @if($user_id == NULL)
                 <li><a href="{{URL::to('/login_check')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a href="/login_check"><i class="fa fa-lock"></i> Login</a></li>
                 @else
-								<li><a href="{{URL::to('/checkout')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                <li><a href="{{URL::to('/user_logout')}}"><i class="fa fa-lock"></i> Logout</a></li>
+                  @if($shipping_id == NULL)
+								          <li><a href="{{URL::to('/checkout')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                  @else
+                          <li><a href="{{URL::to('/payment')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                  @endif
+                      <li><a href="{{URL::to('/user_logout')}}"><i class="fa fa-lock"></i> Logout</a></li>
                 @endif
 							</ul>
 						</div>
@@ -195,6 +199,31 @@
 				</div>
 
 				<div class="col-sm-9 padding-right">
+          <div id="content" class="span10">
+            <?php
+              $message = Session::get('message');
+              if ($message) {
+                  if($message == 'hcash' || $message == 'ppal' || $message == 'bkash'){
+                      echo '<div class="alert alert-dismissable alert-success" style="overflow: hidden; ">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>You have Purchased the items through '.'<span style="font-size: 20px; color: red;"><b>'.$message.'</b></span>
+                      We will send you further notification through email
+                      or the mobile number you provided us with.Thank you for being with us!';
+                  } else {
+                    echo '<div class="alert alert-dismissable alert-warning" style="overflow: hidden; ">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>'.$message;
+                  }
+
+                Session::put('message', null);
+                echo "</div>";
+              }
+
+             ?>
+            @yield('admin_content')
+          </div><!--/.fluid-container-->
             @yield('slider')
 					<div class="features_items"><!--features_items-->
             @yield('content')

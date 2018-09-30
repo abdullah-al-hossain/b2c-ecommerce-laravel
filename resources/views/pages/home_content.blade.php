@@ -15,6 +15,7 @@ Home | E-Shopper
     <div class="single-products" style="border-radius: 30px;">
         <div class="productinfo text-center">
           <img src="{{ $product->product_image }}" alt="Product Image" />
+          <h4 style="color: #888; padding:0; margin:0;">{{ $product->product_name }}</h4>
           <h2>${{ $product->product_price }}</h2>
           <p>{{ $product->short_desc}}</p>
           <a href="{{URL::to('/view_product/'.$product->p_id)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
@@ -27,7 +28,7 @@ Home | E-Shopper
     </div>
     <div class="choose">
       <ul class="nav nav-pills nav-justified" style="background: #ccc;">
-        <li><a href="#" style="color: #fff;"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+        <li><a href="{{URL::to('/view_product/'.$product->p_id)}}" style="color: #fff;"><i class="fa fa-plus-square"></i>Add to cart</a></li>
         <li><a href="{{URL::to('/view_product/'.$product->p_id)}}" style="color: #fff;"><i class="fa fa-plus-square"></i>View Item</a></li>
       </ul>
     </div>
