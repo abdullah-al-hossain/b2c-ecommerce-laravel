@@ -132,7 +132,7 @@ Edit Product
         </div>
 
         <div class="form-actions">
-          <button type="submit" class="btn btn-primary">Add Product</button>
+          <button type="submit" class="btn btn-primary">Update</button>
           <button type="reset" class="btn">Cancel</button>
         </div>
         </fieldset>

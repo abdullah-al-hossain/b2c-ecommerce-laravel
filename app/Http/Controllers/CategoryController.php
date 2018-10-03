@@ -141,10 +141,5 @@ class CategoryController extends Controller
       } else {
         return Redirect::to('/admin')->send();
       }
-    }
-
-    public function checkout()
-    {
-        return view('pages.checkout');
-    }
+    }    
 }

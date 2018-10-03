@@ -13,6 +13,7 @@ class CheckoutController extends Controller
 {
     public function login_check()
     {
+      Session::put('page', 'login');
       $categories = DB::table('categories')->where('pub_stat', 1)->get();
       $manufactures = DB::table('manufactures')->where('pub_stat', 1)->get();
       return view('pages.login', compact('categories', 'manufactures'));
@@ -37,10 +38,11 @@ class CheckoutController extends Controller
     public function checkout()
     {
       $this->UserAuthCheck();
-      if (Cart::total() < 1.00) {
+      if (Cart::count() <= 0) {
         return Redirect::to('/')
                           ->with('message', 'You have nothing in your cart. Please buy something at first.');
       }
+      Session::put('page', 'checkout');
       $categories = DB::table('categories')->where('pub_stat', 1)->get();
       $manufactures = DB::table('manufactures')->where('pub_stat', 1)->get();
       return view('pages.checkout', compact('categories', 'manufactures'));
@@ -79,10 +81,14 @@ class CheckoutController extends Controller
                                 ->where('password', $user_pwd)
                                 ->first();
 
-
       if ($result) {
         Session::put('user_id', $result->uid);
         Session::put('user_name', $result->name);
+        Session::put('user_email', $result->email);
+        Session::put('user_mobile', $result->mobile);
+        $sid = Session::get('shipping_id');
+        if($sid == null)
+          return Redirect::to('/');
 
         return Redirect::to('/checkout');
       } else {
@@ -119,7 +125,7 @@ class CheckoutController extends Controller
 
 
       $odata = array();
-      $odata['user_id'] = Session::get('user_id');
+      $odata['uid'] = Session::get('user_id');
       $odata['shipping_id'] = Session::get('shipping_id');
       $odata['payment_id'] = $payment_id;
       $odata['order_total'] = Cart::total();
@@ -160,6 +166,30 @@ class CheckoutController extends Controller
                         ->with('message', $message);
     }
 
+    public function manage_order()
+    {
+      $all_orders_info = DB::table('orders')
+                                          ->join('users', 'orders.uid', '=', 'users.uid')
+                                          ->select('orders.*', 'users.name')
+                                          ->get();
+      return view('admin.orders.index', compact('all_orders_info'));
+    }
+
+    public function view_order($order_id)
+    {
+      $order_info_byId = DB::table('orders')
+                                          ->join('users', 'orders.uid', '=', 'users.uid')
+                                          ->join('orderdetails', 'orders.order_id', '=', 'orderdetails.order_id')
+                                          ->join('shippings', 'orders.shipping_id', '=' , 'shippings.shipping_id')
+                                          ->select('orders.*', 'orderdetails.*', 'shippings.*', 'users.*')
+                                          ->first();
+
+      $products_by_order_id = DB::table('products');
+      echo "<pre>";
+      print_r($order_info_byId);
+      echo "</pre>";
+      return view('admin.orders.show', compact('order_info_byId'));
+    }
     // The function you see below was created for the purpose to see if the user is logged in or not
     public function UserAuthCheck()
     {

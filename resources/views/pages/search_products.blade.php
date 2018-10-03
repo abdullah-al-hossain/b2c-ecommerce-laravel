@@ -4,7 +4,7 @@ Search Results
 @endsection
 
 @section('content')
-<h2 class="title text-center">Features Items</h2>
+<h2 class="title text-center" style="color: #0069D9;">Search Results</h2>
 <div class="col-sm-12">
 @foreach($products as $product)
 <div class="col-sm-4">

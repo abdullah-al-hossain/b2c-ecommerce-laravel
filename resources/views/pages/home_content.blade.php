@@ -16,12 +16,16 @@ Home | E-Shopper
         <div class="productinfo text-center">
           <img src="{{ $product->product_image }}" alt="Product Image" />
           <h4 style="color: #888; padding:0; margin:0;">{{ $product->product_name }}</h4>
-          <h2>${{ $product->product_price }}</h2>
+          <h2>Price: ${{ $product->product_price }}</h2>
+          <hr>
           <p>{{ $product->short_desc}}</p>
           <a href="{{URL::to('/view_product/'.$product->p_id)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
         </div>
         <div class="product-overlay" style="background: #ccc;">
           <div class="overlay-content">
+            <img src="{{ $product->product_image }}" alt="Product Image" /><br>
+            <h2 style="padding: 0; margin: 0;">{{ $product->product_name }}</h2>
+            <h3 style="padding: 0; margin: 0;">${{ $product->product_price }}</h3>
             <a href="{{URL::to('/view_product/'.$product->p_id)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
           </div>
         </div>

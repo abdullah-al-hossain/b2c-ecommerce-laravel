@@ -88,7 +88,7 @@ class HomeController extends Controller
     {
       $products = Product::where('product_name', 'like', '%'.$request->name.'%')->get();
       $categories = DB::table('categories')->where('pub_stat', 1)->get();
-      $manufactures = DB::table('manufactures')->where('pub_stat', 1)->get();;
+      $manufactures = DB::table('manufactures')->where('pub_stat', 1)->get();
       return view('pages.search_products', compact('categories', 'manufactures', 'products'));
     }
 }

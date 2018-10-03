@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use DB;
 use Cart;
+use Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 session_start();
@@ -29,14 +30,14 @@ class CartController extends Controller
 
     public function show_cart()
     {
-      if (Cart::total() < 1.00) {
+      if (Cart::count() <= 0) {
         return Redirect::to('/')
                           ->with('message', 'You have nothing in your cart. Please buy something at first.');
       }
-
+      Session::put('page', 'cart');
       $categories = DB::table('categories')->where('pub_stat', 1)->get();
       $manufactures = DB::table('manufactures')->where('pub_stat', 1)->get();
-      return view('pages.add_to_cart', compact('categories', 'manufactures'));
+      return view('pages.add_to_cart', compact('categories', 'manufactures', 'cartPage'));
     }
 
     public function delete($rowId)

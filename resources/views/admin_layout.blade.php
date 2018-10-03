@@ -36,9 +36,11 @@
 	<!-- start: Favicon -->
 	<link rel="shortcut icon" href="img/favicon.ico">
 	<!-- end: Favicon -->
-
-
-
+	<style>
+		* {
+			outline-style: none;
+		}
+	</style>
 
 </head>
 
@@ -335,6 +337,7 @@
 				<div class="nav-collapse sidebar-nav">
 					<ul class="nav nav-tabs nav-stacked main-menu">
 						<li><a href="{{URL::to('/dashboard')}}"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard</span></a></li>
+						<li><a href="{{URL::to('/manage_orders')}}"><i class="icon-envelope"></i><span class="hidden-tablet"> Manage Orders</span></a></li>
 						<li><a href="{{URL::to('/all_cat')}}"><i class="icon-envelope"></i><span class="hidden-tablet"> All Catrgory</span></a></li>
 						<li><a href="{{URL::to('/add_cat')}}"><i class="icon-tasks"></i><span class="hidden-tablet"> Add Category</span></a></li>
 						<li><a href="{{URL::to('/all_man')}}"><i class="icon-eye-open"></i><span class="hidden-tablet"> All Manufactures</span></a></li>
@@ -353,9 +356,15 @@
 								<li><a class="submenu" href="add_slider"><i class="icon-file-alt"></i><span class="hidden-tablet"> Add Slider</span></a></li>
 							</ul>
 						</li>
-						<li><a href="chart.html"><i class="icon-list-alt"></i><span class="hidden-tablet"> Social Link</span></a></li>
+						<li>
+							<a class="dropmenu" href="#"><i class="icon-folder-close-alt"></i><span class="hidden-tablet"> Social</span><span class="label label-important"> new </span></a>
+							<ul>
+								<li><a class="submenu" href="{{URL::to('/social')}}"><i class="icon-file-alt"></i><span class="hidden-tablet"> All Social</span></a></li>
+								<li><a href="{{URL::to('/social_add')}}"><i class="icon-list-alt"></i><span class="hidden-tablet">Add Social</span></a></li>
+							</ul>
+						</li>
 						<li><a href="typography.html"><i class="icon-font"></i><span class="hidden-tablet"> Shop Name</span></a></li>
-						<li><a href="gallery.html"><i class="icon-picture"></i><span class="hidden-tablet"> Delivery Man</span></a></li>
+						<li><a href="{{URL::to('/del_man')}}"><i class="icon-picture"></i><span class="hidden-tablet"> Delivery Man</span></a></li>
 					</ul>
 				</div>
 			</div>

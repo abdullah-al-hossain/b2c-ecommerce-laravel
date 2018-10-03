@@ -141,6 +141,7 @@ Cart
             @else
             <a class="btn btn-default check_out" href="{{URL::to('/checkout')}}">Check Out</a>
             @endif
+            <a class="btn btn-default check_out" href="{{URL::to('/')}}">Shop more</a>
         </div>
       </div>
     </div>

@@ -27,6 +27,9 @@
   Route::get('/payment', 'CheckoutController@payment');
   Route::post('/payment', 'CheckoutController@payment_insert');
 
+  Route::get('/manage_orders', 'CheckoutController@manage_order');
+  Route::get('/view_order/{order_id?}', 'CheckoutController@view_order');
+
 
   /// backend
   Route::get('/admin', 'AdminController@index');
@@ -63,6 +66,15 @@
   Route::get('/delete_product/{product_id?}', 'ProductsController@delete');
   Route::get('/edit_product/{p_id?}', 'ProductsController@edit');
   Route::post('/edit_product', 'ProductsController@update');
+  // Social links Routes
+
+  Route::get('/social' , 'SocialsController@index');
+  Route::get('/social_add' , 'SocialsController@add');
+  Route::post('/add_social' , 'SocialsController@store');
+  Route::post('/edit_social_stat' , 'SocialsController@editStat');
+  Route::get('/edit_social/{id?}', 'SocialsController@edit');
+  Route::post('/edit_social', 'SocialsController@update');
+  Route::get('/delete_social/{id?}', 'SocialsController@delete');
 
 // slider routes go here
 
@@ -71,3 +83,7 @@
   Route::post('/add_slider', 'SlidersController@store');
   Route::get('/delete_slider/{slider_id?}', 'SlidersController@delete');
   Route::post('/edit_slider_pub_stat','SlidersController@public_status');
+
+// user Information
+
+  Route::get('/user_account', 'UsersController@index');
