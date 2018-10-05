@@ -1,5 +1,7 @@
 @extends('admin_layout')
-
+@section('title')
+Order Details
+@endsection
 @section('admin_content')
 <div class="row-fluid sortable">
   <div class="box span6">
@@ -16,8 +18,8 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{ $order_info_byId->name}}</td>
-            <td>{{ $order_info_byId->mobile}}</td>
+            <td>{{ $order_details->name }}</td>
+            <td>{{ $order_details->mobile }}</td>
           </tr>
         </tbody>
       </table>
@@ -31,7 +33,7 @@
       <table class="table table-striped table-bordered">
         <thead>
           <tr>
-            <th>Username</th>
+            <th>Recipient</th>
             <th>Address</th>
             <th>Mobile</th>
             <th>Email</th>
@@ -39,10 +41,10 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{ $order_info_byId->shipping_first_name }} {{ $order_info_byId->shipping_last_name }} </td>
-            <td>{{ $order_info_byId->shipping_address }}</td>
-            <td>{{ $order_info_byId->mobile_number }}</td>
-            <td>{{ $order_info_byId->shipping_email }}</td>
+            <td>{{ $order_details->shipping_first_name }} {{$order_details->shipping_last_name }}</td>
+            <td>{{ $order_details->shipping_address }}</td>
+            <td>{{ $order_details->mobile_number }}</td>
+            <td>{{ $order_details->shipping_email }}</td>
           </tr>
         </tbody>
       </table>
@@ -64,18 +66,42 @@
           </tr>
         </thead>
         <tbody>
+          <?php
+            $total = 0;
+          ?>
+          @foreach($all_bought_products as $product)
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{ $product->order_id }}</td>
+            <td>{{ $product->product_name }}</td>
+            <td>{{ $product->product_price }}</td>
+            <td>{{ $product->product_sales_quantity }}</td>
+            <td>{{ $product->product_price*$product->product_sales_quantity }}</td>
+            <?php
+              $total += $product->product_price*$product->product_sales_quantity;
+            ?>
+          </tr>
+          @endforeach
+          <tr>
+            <td colspan="4">TOTAL</td>
+            <td>= {{ $total }}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div><!--/span-->
 
+  <?php
+    $payment = DB::table('orders')
+                ->join('payments', 'orders.payment_id', '=', 'payments.payment_id')
+                ->select('payments.payment_method', 'payments.payment_status')
+                ->where('order_id', $all_bought_products[0]->order_id)
+                ->first();
+
+   ?>
+  <div class="box span11">
+    <h1 align="center">Payment Method: {{ $payment->payment_method }}</h1>
+    <h2 align="center">Payment Status: {{ $payment->payment_status }}</h2>
+  </div>
 
 </div><!--/row-->
 @endsection

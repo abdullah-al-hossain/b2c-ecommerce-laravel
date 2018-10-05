@@ -18,4 +18,14 @@ class UsersController extends Controller
       }
       return view('users.index');
     }
+
+    public function timeline()
+    {
+      $user_id = Session::get('user_id');
+      if ($user_id == null) {
+        Session::put('message', 'You need to login or signUp at first');
+        return Redirect::to('/');
+      }
+      return view('users.timeline');
+    }
 }

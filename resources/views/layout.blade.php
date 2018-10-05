@@ -195,11 +195,18 @@
 								<li><a href="/" class="active">Home</a></li>
 
 								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="#">Blog List</a></li>
-										<li><a href="#">Blog Single</a></li>
-                                    </ul>
-                                </li>
+                    <ul role="menu" class="sub-menu">
+                        <li><a href="#">Blog List</a></li>
+		                    <li><a href="#">Blog Single</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="#">Manufacturers<i class="fa fa-angle-down"></i></a>
+                    <ul role="menu" class="sub-menu">
+                      @foreach($manufactures as $manufacture)
+                        <li><a href="{{ URL::to('/product_by_man/'.$manufacture->man_id) }}">{{ $manufacture->man_name }}</a></li>
+                      @endforeach
+                    </ul>
+                </li>
 								<li><a href="#">Contact</a></li>
 							</ul>
 						</div>
@@ -235,33 +242,19 @@
               @endif
 							@endforeach
 						</div><!--/category-products-->
-						<div class="brands_products"><!--brands_products-->
-							<h2>Manufacturers</h2>
-							<div class="brands-name">
-								<ul class="nav nav-pills nav-stacked">
-                  @foreach($manufactures as $manufacture)
-									<li><a href="{{ URL::to('/product_by_man/'.$manufacture->man_id) }}">{{ $manufacture->man_name }}</a></li>
-                  @endforeach
-								</ul>
-							</div>
-						</div><!--/brands_products-->
 
 						<div class="price-range"><!--price-range-->
-							<h2>Price Range</h2>
+							<h2>Your Price Range</h2>
 							<div class="well text-center">
                 <form class="" action="products_by_range" method="post">
                   {{ csrf_field() }}
                   <!-- <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br /> -->
-                  From $<input type="number" name="from" style="width: 90px;"><br> <br>To $<input type="number" name="to" style="width: 90px;">
+                  From <input type="number" name="from" style="width: 90px;"> /=<br> <br>To <input type="number" name="to" style="width: 90px;"> /=
                   <br> <input class="btn btn-default" type="submit" value="Submit" style="margin-top: 15px;">
                 </form>
 
 							</div>
 						</div><!--/price-range-->
-
-						<div class="shipping text-center"><!--shipping-->
-							<img src="images/home/shipping.jpg" alt="" />
-						</div><!--/shipping-->
 
 					</div>
 				</div>

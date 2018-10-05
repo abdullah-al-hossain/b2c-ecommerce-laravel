@@ -11,6 +11,7 @@ session_start();
 
 class CheckoutController extends Controller
 {
+    // This Function will take us to the login page if we want to checkout without signing in or if we wish to login by our own will
     public function login_check()
     {
       Session::put('page', 'login');
@@ -19,6 +20,7 @@ class CheckoutController extends Controller
       return view('pages.login', compact('categories', 'manufactures'));
     }
 
+    //User registration function. If user click the sign up button this function will be triggered
     public function user_reg(Request $request)
     {
       $data = array();
@@ -29,19 +31,26 @@ class CheckoutController extends Controller
 
       $user_id = DB::table('users')
                                 ->insertGetId($data);
-      Session::put('user_id', $user_id);
-      Session::put('user_name', $request->name);
+      // the insertGetId() function inserts the values into the database and at the same time it gets the id of that current table
+      // Create session for the current user
+      Session::put('user_id', $result->uid);
+      Session::put('user_name', $result->name);
+      Session::put('user_email', $result->email);
+      Session::put('user_mobile', $result->mobile);
 
       return Redirect::to('/checkout');
     }
 
+    //This is our checkout function when we press checkout in our add to cart page this function will be triggered
     public function checkout()
     {
       $this->UserAuthCheck();
       if (Cart::count() <= 0) {
+        //If there is no item in the cart we will return to our homepage with a warning message
         return Redirect::to('/')
                           ->with('message', 'You have nothing in your cart. Please buy something at first.');
       }
+      // This 'page' session variable is created so that we can keep track of out current page
       Session::put('page', 'checkout');
       $categories = DB::table('categories')->where('pub_stat', 1)->get();
       $manufactures = DB::table('manufactures')->where('pub_stat', 1)->get();
@@ -50,6 +59,7 @@ class CheckoutController extends Controller
 
     public function save_shipping_details(Request $request)
     {
+      // UserAuthCheck() function is used to check if the user is logged in or not
       $this->UserAuthCheck();
       $data = array();
       $data['shipping_email'] = $request->shipping_email;
@@ -65,16 +75,20 @@ class CheckoutController extends Controller
       return Redirect::to('/payment');
     }
 
+    //This is the logout function
     public function logout()
     {
       $this->UserAuthCheck();
+      // the flush() method in the Session class destroys all the session in that browser
       Session::flush();
       return Redirect::to('/');
     }
 
+    // This is the user login function
     public function user_login(Request $request)
     {
       $user_email = $request->user_email;
+      // md5() is an encryption method . Now more advanced ones are deployed like the argon() hashing
       $user_pwd = md5($request->user_pwd);
       $result = DB::table('users')
                                 ->where('email', $user_email)
@@ -82,6 +96,7 @@ class CheckoutController extends Controller
                                 ->first();
 
       if ($result) {
+        //This is session variables are created for the customer to fulfil his task
         Session::put('user_id', $result->uid);
         Session::put('user_name', $result->name);
         Session::put('user_email', $result->email);
@@ -97,11 +112,12 @@ class CheckoutController extends Controller
       }
     }
 
+    // THis is the funtion that determines the payment method of the user
     public function payment()
     {
       $this->UserAuthCheck();
       $sid = Session::get('shipping_id');
-
+      // We see if the customer has already given his shipping details or not. If not we will send him back to the homepage with a warning message
       if(!$sid) {
           return Redirect::to('/')->with('message', 'You must checkout at first');
       }
@@ -166,30 +182,6 @@ class CheckoutController extends Controller
                         ->with('message', $message);
     }
 
-    public function manage_order()
-    {
-      $all_orders_info = DB::table('orders')
-                                          ->join('users', 'orders.uid', '=', 'users.uid')
-                                          ->select('orders.*', 'users.name')
-                                          ->get();
-      return view('admin.orders.index', compact('all_orders_info'));
-    }
-
-    public function view_order($order_id)
-    {
-      $order_info_byId = DB::table('orders')
-                                          ->join('users', 'orders.uid', '=', 'users.uid')
-                                          ->join('orderdetails', 'orders.order_id', '=', 'orderdetails.order_id')
-                                          ->join('shippings', 'orders.shipping_id', '=' , 'shippings.shipping_id')
-                                          ->select('orders.*', 'orderdetails.*', 'shippings.*', 'users.*')
-                                          ->first();
-
-      $products_by_order_id = DB::table('products');
-      echo "<pre>";
-      print_r($order_info_byId);
-      echo "</pre>";
-      return view('admin.orders.show', compact('order_info_byId'));
-    }
     // The function you see below was created for the purpose to see if the user is logged in or not
     public function UserAuthCheck()
     {

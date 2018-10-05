@@ -40,7 +40,7 @@ Cart
               <p>Web ID: 1089772</p>
             </td>
             <td class="cart_price">
-              <p>{{ $content->price }}</p>
+              <p>{{ $content->price }}/=</p>
             </td>
             <td class="cart_quantity">
               <div class="cart_quantity_button">

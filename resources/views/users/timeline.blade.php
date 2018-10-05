@@ -1,39 +1,56 @@
 @extends('user_layout')
 
 @section('content')
+
+  <?php
+    //$orderDetails = DB::table('orders')-
+   ?>
 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <div class="row">
                 <div class="col-md-6">
-                    <label>Name</label>
+                    <label>Experience</label>
                 </div>
                 <div class="col-md-6">
-                    <p>{{ Session::get('user_name') }}</p>
+                    <p>Expert</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <label>Email</label>
+                    <label>Hourly Rate</label>
                 </div>
                 <div class="col-md-6">
-                    <p>{{ Session::get('user_email') }}</p>
+                    <p>10$/hr</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <label>Phone</label>
+                    <label>Total Projects</label>
                 </div>
                 <div class="col-md-6">
-                    <p>{{ Session::get('user_mobile') }}</p>
+                    <p>230</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <label>Profession</label>
+                    <label>English Level</label>
                 </div>
                 <div class="col-md-6">
-                    <p>Web Developer and Designer</p>
+                    <p>Expert</p>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Availability</label>
+                </div>
+                <div class="col-md-6">
+                    <p>6 months</p>
+                </div>
+            </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label>Your Bio</label><br/>
+            <p>Your detail description</p>
+        </div>
+    </div>
 </div>
-
 @endsection

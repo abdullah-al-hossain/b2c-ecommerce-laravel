@@ -141,5 +141,5 @@ class CategoryController extends Controller
       } else {
         return Redirect::to('/admin')->send();
       }
-    }    
+    }
 }

@@ -11,7 +11,10 @@ session_start();
 
 class AdminController extends Controller
 {
-    public function index() {      
+    public function index() {
+      if(Session::get('admin_id'))
+          return Redirect::to('/dashboard');
+          
       return view('admin_login');
     }
 

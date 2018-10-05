@@ -54,7 +54,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-				<a class="brand" href="index.html"><span>Metro</span></a>
+				<a class="brand" href="/admin"><span>Admin Panel</span></a>
 
 				<!-- start: Header Menu -->
 				<div class="nav-no-collapse header-nav">
@@ -418,8 +418,8 @@
 	<footer>
 
 		<p>
-			<span style="text-align:left;float:left">&copy; 2013 <a href="http://bootstrapmaster.com/" alt="Bootstrap Themes">creativeLabs</a></span>
-			<span class="hidden-phone" style="text-align:right;float:right">Powered by: <a href="http://admintemplates.co/" alt="Bootstrap Admin Templates">Metro</a></span>
+			<span style="text-align:left;float:left">&copy; 2013 <a href="http://www.facebook.com/users/abuyousha" alt="Bootstrap Themes">Abdullah Al Hossain</a></span>
+			<span class="hidden-phone" style="text-align:right;float:right">Powered by: <a href="http://www.facebook.com/users/abuyousha" alt="Bootstrap Admin Templates">Cuet CSE 1404111</a></span>
 		</p>
 
 	</footer>

@@ -42,32 +42,32 @@ Manage Orders
           <td style="max-width: 500px;">{{ $order->order_total }}</td>
           <td class="center">
             <?php
-            if ($order->order_status == 'pending') {
-              echo '<span class="label label-success">Pending</span>';
+            if ($order->order_status == 'pending' || $order->order_status == 'canceled') {
+              echo '<span class="label label-danger">'.$order->order_status.'</span>';
             } else {
-              echo '<span class="label label-danger">Confirmed</span>';
+              echo '<span class="label label-success">'.$order->order_status .'</span>';
             }
 
              ?>
           </td>
           <td class="center">
-            <form action="/edit_cat_pub_stat" method="POST" style="display: inline-block; padding: 0px; margin: 0px;">
+            <form action="/confirm_order" method="POST" style="display: inline-block; padding: 0px; margin: 0px;">
               {{ csrf_field() }}
-                <input type="hidden" name="category_id" value="{{$order->order_id}}"/>
-                <input type="hidden" name="pub_stat" value="{{$order->order_status}}"/>
+                <input type="hidden" name="order_id" value="{{$order->order_id}}"/>
+                <input type="hidden" name="order_status" value="{{$order->order_status}}"/>
                 <button type="submit" style="font-size: 30px;"
                 <?php
-                if ($order->order_status == 'pending') {
-                  echo 'class="btn label-danger"';
+                if ($order->order_status == 'pending' || $order->order_status == 'canceled') {
+                  echo 'class="btn label-success"';
                 } else {
-                  echo 'class="btn btn-success"';
+                  echo 'class="btn btn-danger"';
                 }
 
                 ?>
                 >
                   <i
                   <?php
-                  if ($order->order_status == 'pending') {
+                  if ($order->order_status == 'pending' || $order->order_status == 'canceled') {
                     echo 'class="halflings-icon white thumbs-up"';
                   } else {
                     echo 'class="halflings-icon white thumbs-down"';

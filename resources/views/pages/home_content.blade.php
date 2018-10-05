@@ -16,24 +16,39 @@ Home | E-Shopper
         <div class="productinfo text-center">
           <img src="{{ $product->product_image }}" alt="Product Image" />
           <h4 style="color: #888; padding:0; margin:0;">{{ $product->product_name }}</h4>
-          <h2>Price: ${{ $product->product_price }}</h2>
+          <h2>Price: {{ $product->product_price }}/=</h2>
           <hr>
           <p>{{ $product->short_desc}}</p>
-          <a href="{{URL::to('/view_product/'.$product->p_id)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+          <form action="/add_to_cart" method="POST">
+            {{ csrf_field() }}
+            <input name="qty" type="hidden" value="1" />
+            <input type="hidden" name="product_id" value="{{ $product->p_id }}">
+            <button type="submit" class="btn btn-fefault cart">
+              <i class="fa fa-shopping-cart"></i>
+              Add to cart
+            </button>
+          </form>
         </div>
         <div class="product-overlay" style="background: #ccc;">
           <div class="overlay-content">
             <img src="{{ $product->product_image }}" alt="Product Image" /><br>
             <h2 style="padding: 0; margin: 0;">{{ $product->product_name }}</h2>
             <h3 style="padding: 0; margin: 0;">${{ $product->product_price }}</h3>
-            <a href="{{URL::to('/view_product/'.$product->p_id)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+            <form action="/add_to_cart" method="POST">
+              {{ csrf_field() }}
+              <input name="qty" type="hidden" value="1" />
+              <input type="hidden" name="product_id" value="{{ $product->p_id }}">
+              <button type="submit" class="btn btn-fefault cart">
+                <i class="fa fa-shopping-cart"></i>
+                Add to cart
+              </button>
+            </form>
           </div>
         </div>
     </div>
     <div class="choose">
       <ul class="nav nav-pills nav-justified" style="background: #ccc;">
-        <li><a href="{{URL::to('/view_product/'.$product->p_id)}}" style="color: #fff;"><i class="fa fa-plus-square"></i>Add to cart</a></li>
-        <li><a href="{{URL::to('/view_product/'.$product->p_id)}}" style="color: #fff;"><i class="fa fa-plus-square"></i>View Item</a></li>
+        <li><a href="{{URL::to('/view_product/'.$product->p_id)}}" style="color: #333;"><i class="fa fa-plus-square"></i>View Item Details</a></li>
       </ul>
     </div>
   </div>

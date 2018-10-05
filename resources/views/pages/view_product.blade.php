@@ -49,7 +49,7 @@ Product Details
 								<p>Web ID: 1089772</p>
 								<img src="{{URL::to('frontend/images/product-details/rating.png') }}" alt="" />
 								<span>
-									<span>US ${{ $product->product_price }}</span>
+									<span>BN {{ $product->product_price }}/=</span>
 									<form action="/add_to_cart" method="POST">
 										{{ csrf_field() }}
 										<label>Quantity:</label>

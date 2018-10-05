@@ -27,8 +27,9 @@
   Route::get('/payment', 'CheckoutController@payment');
   Route::post('/payment', 'CheckoutController@payment_insert');
 
-  Route::get('/manage_orders', 'CheckoutController@manage_order');
-  Route::get('/view_order/{order_id?}', 'CheckoutController@view_order');
+  Route::get('/manage_orders', 'OrderDetailsController@manage_order');
+  Route::post('/confirm_order', 'OrderDetailsController@confirm_order');
+  Route::get('/view_order/{order_id?}', 'OrderDetailsController@view_order');
 
 
   /// backend
@@ -84,6 +85,7 @@
   Route::get('/delete_slider/{slider_id?}', 'SlidersController@delete');
   Route::post('/edit_slider_pub_stat','SlidersController@public_status');
 
-// user Information
+// user account Information
 
   Route::get('/user_account', 'UsersController@index');
+  Route::get('/user_account_timeline', 'UsersController@timeline');
