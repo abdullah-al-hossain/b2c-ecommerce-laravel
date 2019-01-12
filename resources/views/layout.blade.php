@@ -125,7 +125,7 @@
                   @endif
                 href="/show_cart"><i class="fa fa-shopping-cart"></i> Cart
                   @if( Cart::count() > 0)
-                  <span class="badge badge-primary">{{ Cart::count() }}</span>
+                  <span class="badge badge-info">{{ Cart::count() }}</span>
                   @endif
                 </a></li>
                 @if($user_id == NULL)

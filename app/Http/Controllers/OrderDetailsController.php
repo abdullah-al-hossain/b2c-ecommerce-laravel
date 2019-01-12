@@ -13,15 +13,18 @@ class OrderDetailsController extends Controller
 {
   public function manage_order()
   {
+    $this->AdminAuthCheck();
     $all_orders_info = DB::table('orders')
                                         ->join('users', 'orders.uid', '=', 'users.uid')
                                         ->select('orders.*', 'users.name')
+                                        ->orderBy('order_id', 'desc')
                                         ->get();
     return view('admin.orders.index', compact('all_orders_info'));
   }
 
   public function view_order($order_id)
   {
+    $this->AdminAuthCheck();
     $all_bought_products = DB::table('orders')
                                         ->join('orderdetails', 'orders.order_id', '=', 'orderdetails.order_id')
                                         ->select('orders.*', 'orderdetails.*')
@@ -32,7 +35,7 @@ class OrderDetailsController extends Controller
                                         ->join('shippings', 'orders.shipping_id', '=' , 'shippings.shipping_id')
                                         ->select('users.*', 'shippings.*')
                                         ->where('orders.order_id', $order_id)->first();
-                                        
+
     return view('admin.orders.show', compact('all_bought_products', 'order_details'));
   }
 

@@ -88,4 +88,6 @@
 // user account Information
 
   Route::get('/user_account', 'UsersController@index');
-  Route::get('/user_account_timeline', 'UsersController@timeline');
+  Route::get('/user_confirmed_orders', 'UsersController@confirmed_orders');
+  Route::get('/pending_orders', 'UsersController@pending_orders');
+  Route::get('/canceled_orders', 'UsersController@canceled_orders');

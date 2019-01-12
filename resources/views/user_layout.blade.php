@@ -39,9 +39,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab" data-toggle="" href="/user_account" aria-selected="true">About</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="profile-tab" data-toggle="" href="/user_account_timeline" aria-selected="true">Timeline</a>
-                                </li>
                             </ul>
                         </div>
                     </div>
@@ -50,10 +47,10 @@
                     <div class="col-md-4">
                         <div class="profile-work">
 
-                            <p>WORK LINK</p>
-                            <a href="">Website Link</a><br/>
-                            <a href="">Bootsnipp Profile</a><br/>
-                            <a href="">Bootply Profile</a>
+                            <p>You orders</p>
+                            <a href="/user_confirmed_orders">Confirmed<span class="badge badge-info">2</span></a><br/>
+                            <a href="/pending_orders">Pending<span class="badge badge-info">1</span></a><br/>
+                            <a href="/canceled_orders">Canceled<span class="badge badge-info">1</span></a>
                             <p>SKILLS</p>
                             <a href="">Web Designer</a><br/>
                             <a href="">Web Developer</a><br/>
