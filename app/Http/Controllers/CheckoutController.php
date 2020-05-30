@@ -33,12 +33,16 @@ class CheckoutController extends Controller
                                 ->insertGetId($data);
       // the insertGetId() function inserts the values into the database and at the same time it gets the id of that current table
       // Create session for the current user
-      Session::put('user_id', $result->uid);
-      Session::put('user_name', $result->name);
-      Session::put('user_email', $result->email);
-      Session::put('user_mobile', $result->mobile);
+      if ($user_id != null) {
+        Session::put('user_id', $user_id);
+        Session::put('user_name', $request->name);
+        Session::put('user_email', $request->email);
+        Session::put('user_mobile', $request->mobile);
+      } else {
+          return Redirect::to('/checkout')->with('message', 'registration Failed.');
+      }
 
-      return Redirect::to('/checkout');
+      return Redirect::to('/checkout')->with('message', 'Registration Failed successful.');
     }
 
     //This is our checkout function when we press checkout in our add to cart page this function will be triggered
@@ -90,6 +94,9 @@ class CheckoutController extends Controller
       $user_email = $request->user_email;
       // md5() is an encryption method . Now more advanced ones are deployed like the argon() hashing
       $user_pwd = md5($request->user_pwd);
+
+
+
       $result = DB::table('users')
                                 ->where('email', $user_email)
                                 ->where('password', $user_pwd)
@@ -101,6 +108,7 @@ class CheckoutController extends Controller
         Session::put('user_name', $result->name);
         Session::put('user_email', $result->email);
         Session::put('user_mobile', $result->mobile);
+        Session::put('user_image', $result->user_image);
         $sid = Session::get('shipping_id');
         if($sid == null)
           return Redirect::to('/');
@@ -163,6 +171,20 @@ class CheckoutController extends Controller
 
         DB::table('orderdetails')
                                 ->insert($odetails);
+      }
+
+      $userId = Session::get('user_id');
+
+      if ($userId) {
+        $uid = Session::get('user_id');
+        $p_id = $request->product_id;
+        $event = "added to cart";
+
+        $event = DB::table('events')->insert([
+                    'uid' => $userId,
+                    'p_id' => 0,
+                    'event' => 'purchased',
+                ]);
       }
 
       if ($payment_gateway == 'hcash') {

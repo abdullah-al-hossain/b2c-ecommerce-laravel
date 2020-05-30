@@ -3,12 +3,26 @@
 Cart
 @endsection
 @section('content')
+<?php
+class BanglaConverter {
+  public static $bn = array("১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯", "০");
+  public static $en = array("1", "2", "3", "4", "5", "6", "7", "8", "9", "0");
+
+  public static function bn2en($number) {
+      return str_replace(self::$bn, self::$en, $number);
+  }
+
+  public static function en2bn($number) {
+      return str_replace(self::$en, self::$bn, $number);
+  }
+}
+ ?>
 <section id="cart_items">
   <div class="container col-sm-12">
     <div class="breadcrumbs">
       <ol class="breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li class="active">Shopping Cart</li>
+        <li><a href="/">হোম</a></li>
+        <li class="active">আপনার ঝুড়ি</li>
       </ol>
     </div>
     <div class="table-responsive cart_info">
@@ -20,11 +34,11 @@ Cart
       <table class="table table-condensed">
         <thead>
           <tr class="cart_menu">
-            <td class="image">Image</td>
-            <td class="description">Name</td>
-            <td class="price">Price</td>
-            <td class="quantity">Quantity</td>
-            <td class="total">Total</td>
+            <td class="image">পণ্যের ছবি</td>
+            <td class="description">পণ্যের নাম</td>
+            <td class="price">মূল্য</td>
+            <td class="quantity">পরিমাণ</td>
+            <td class="total">সর্বমোট</td>
             <td>Action</td>
             <td></td>
           </tr>
@@ -40,7 +54,7 @@ Cart
               <p>Web ID: 1089772</p>
             </td>
             <td class="cart_price">
-              <p>{{ $content->price }}/=</p>
+              <p><?php echo BanglaConverter::en2bn($content->price).'৳'; ?></p>
             </td>
             <td class="cart_quantity">
               <div class="cart_quantity_button">
@@ -54,7 +68,7 @@ Cart
               </div>
             </td>
             <td class="cart_total">
-              <p class="cart_total_price">{{ $content->total }}</p>
+              <p class="cart_total_price"><?php echo BanglaConverter::en2bn($content->total).'৳'; ?></p>
             </td>
             <td class="cart_delete">
               <a class="cart_quantity_delete" href="{{URL::to('/delete_cart_item/'.$content->rowId)}}"><i class="fa fa-times"></i></a>
@@ -131,17 +145,17 @@ Cart
       <div class="col-sm-8">
         <div class="total_area">
           <ul>
-            <li>Cart Sub Total <span>{{ Cart::subtotal() }}</span></li>
-            <li>Eco Tax <span>{{ Cart::tax() }}</span></li>
-            <li>Shipping Cost <span>Free</span></li>
-            <li>Total <span>{{ Cart::total() }}</span></li>
+            <li>আপনার ঝুড়ির সকল পণ্যের মূল্য <span><?php echo BanglaConverter::en2bn(Cart::subtotal()).'৳'; ?></span></li>
+            <li>ইকো ট্যাক্স <span><?php echo BanglaConverter::en2bn(Cart::tax()).'৳'; ?></span></li>
+            <li>ডেলিভারি ভাড়া <span>ফ্রি</span></li>
+            <li>সর্বমোট <span><?php echo BanglaConverter::en2bn(Cart::total()).'৳'; ?></span></li>
           </ul>
             @if($user_id == NULL)
-            <a class="btn btn-default check_out" href="{{URL::to('/login_check')}}">Check Out</a>
+            <a class="btn btn-default check_out" href="{{URL::to('/login_check')}}">চেকআউট করুন</a>
             @else
-            <a class="btn btn-default check_out" href="{{URL::to('/checkout')}}">Check Out</a>
+            <a class="btn btn-default check_out" href="{{URL::to('/checkout')}}">চেকআউট করুন</a>
             @endif
-            <a class="btn btn-default check_out" href="{{URL::to('/')}}">Shop more</a>
+            <a class="btn btn-default check_out" href="{{URL::to('/')}}">আরও পণ্য ক্রয় করুন</a>
         </div>
       </div>
     </div>

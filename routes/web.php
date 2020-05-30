@@ -6,11 +6,11 @@
   Route::post('/products_by_range', 'HomeController@range');
   Route::post('/search_products', 'HomeController@search');
 
-// Show product by cateory
+// Show product by category
 
   Route::get('/product_by_cat/{category_id?}', 'HomeController@show_product_by_category');
   Route::get('/product_by_man/{man_id?}', 'HomeController@show_product_by_man');
-  Route::get('/view_product/{product_id?}', 'HomeController@show_product_details');
+  Route::get('/view_product/{product_id?}', 'HomeController@show_product_details');// view ***********
   Route::post('/add_to_cart', 'CartController@add_to_cart');
   Route::get('/show_cart', 'CartController@show_cart');
   Route::get('/delete_cart_item/{rowId?}', 'CartController@delete');
@@ -67,6 +67,18 @@
   Route::get('/delete_product/{product_id?}', 'ProductsController@delete');
   Route::get('/edit_product/{p_id?}', 'ProductsController@edit');
   Route::post('/edit_product', 'ProductsController@update');
+
+
+
+  /// Reviews
+
+  Route::post('/reviews', 'ReviewsController@store');
+  Route::get('/del_review/{review_id?}/{p_id?}', 'ReviewsController@delete');
+  Route::post('/review_update/{review_id?}/{p_id?}', 'ReviewsController@update');
+
+  /// Products API
+  Route::put('edit_product/{id}', 'ProductsController@update');
+  Route::delete('delete_product/{id}', 'ProductsController@delete');
   // Social links Routes
 
   Route::get('/social' , 'SocialsController@index');
@@ -91,3 +103,41 @@
   Route::get('/user_confirmed_orders', 'UsersController@confirmed_orders');
   Route::get('/pending_orders', 'UsersController@pending_orders');
   Route::get('/canceled_orders', 'UsersController@canceled_orders');
+  Route::get('/edit_user_profile', 'UsersController@edit_u_p');
+  Route::post('/edit_user_profile', 'UsersController@update_ucer');
+
+
+/// Delivery man routes
+  Route::get('/delivery_man', 'HomeController@delivery');
+  Route::post('/delivery_search', 'HomeController@delivery_search');
+  Route::get('/add_d_man', 'EventsController@add_d_man');
+  Route::get('/all_d_men', 'EventsController@all_d_men');
+  Route::get('/edit_dm/{d_id?}', 'EventsController@edit_dm');
+  Route::get('/delete_dm/{d_id?}', 'EventsController@delete_dm');
+  Route::post('/update_dm', 'EventsController@update_dm');
+  Route::post('/add_dm', 'EventsController@store_d_man');
+  Route::post('/edit_dm_pub_stat', 'EventsController@update_dm_pub_stat');
+  Route::get('/view_dm/{d_id?}', 'EventsController@view_dm');
+
+
+
+
+/// Advanced clothes function
+  Route::get('/cll', function () {
+    $products        = json_decode(file_get_contents(storage_path('data/products-data.json')));
+    $selectedId      = intval(app('request')->input('id') ?? '8');
+    $selectedProduct = $products[0];
+
+    $selectedProducts = array_filter($products, function ($product) use ($selectedId) { return $product->id === $selectedId; });
+
+    ///return $selectedProducts;
+    if (count($selectedProducts)) {
+        $selectedProduct = $selectedProducts[array_keys($selectedProducts)[0]];
+    }
+
+    $productSimilarity = new App\ProductSimilarity($products);
+    $similarityMatrix  = $productSimilarity->calculateSimilarityMatrix();
+    $products          = $productSimilarity->getProductsSortedBySimularity($selectedId, $similarityMatrix);
+
+    return view('welcome', compact('selectedId', 'selectedProduct', 'products'));
+});

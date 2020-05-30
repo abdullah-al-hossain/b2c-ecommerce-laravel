@@ -3,29 +3,9 @@
 Add Product
 @endsection
 @section('admin_content')
-<ul class="breadcrumb">
-  <li>
-    <i class="icon-home"></i>
-    <a href="index.html">Home</a>
-    <i class="icon-angle-right"></i>
-  </li>
-  <li>
-    <i class="icon-edit"></i>
-    <a href="#">Forms</a>
-  </li>
-</ul>
 
-<div class="row-fluid sortable">
-  <div class="box span12">
-    <div class="box-header" data-original-title>
-      <h2><i class="halflings-icon edit"></i><span class="break"></span>Add Products</h2>
-      <div class="box-icon">
-        <a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
-        <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-        <a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
-      </div>
-    </div>
-    <div class="box-content">
+<div class="row" style="margin-left: 10px;">
+      <h1>Add Product</h1>
       <form class="form-horizontal" method="POST" action="{{URL::to('/add_product')}}" enctype="multipart/form-data">
         {{ csrf_field() }}
         <fieldset>
@@ -89,11 +69,29 @@ Add Product
         </div>
 
         <div class="control-group">
-				  <label class="control-label" for="fileInput">Image of the product:</label>
-				  <div class="controls">
-					<input class="input-file uniform_on" name="product_image" id="fileInput" type="file">
-				  </div>
-				</div>
+		  <label class="control-label" for="fileInput">Main image of the product:</label>
+      <img src="" style="display: none; height:150px; width: auto;"  id="image">
+
+		  <div class="controls">
+			<input class="input-file uniform_on" onchange="showImage.call(this)" name="product_image" id="fileInput" type="file" required>
+
+		  </div>
+		</div>
+
+		<div class="control-group">
+		  <label class="control-label" for="fileInput">More images of the product:</label>
+		  <div class="controls">
+			first image:
+      <input class="input-file uniform_on" onchange="showImage1.call(this)" name="product_image1" id="fileInput" type="file">      
+			second image:
+      <input class="input-file uniform_on" onchange="showImage2.call(this)" name="product_image2" id="fileInput" type="file">
+			third image:
+      <input class="input-file uniform_on" onchange="showImage3.call(this)" name="product_image3" id="fileInput" type="file">
+      <img src="" style="display: none; height:auto; width: 33%;"  id="image1">
+      <img src="" style="display: none; height:auto; width: 33%;"  id="image2">
+      <img src="" style="display: none; height:auto; width: 33%;"  id="image3">
+		  </div>
+		</div>
 
         <div class="control-group">
           <label class="control-label" for="date01">Product Size</label>
@@ -123,8 +121,71 @@ Add Product
         </fieldset>
       </form>
 
-    </div>
-  </div><!--/span-->
-
 </div><!--/row-->
+
+      <script type="text/javascript">
+        function showImage()
+        {
+          if (this.files && this.files[0]) {
+            var obj = new FileReader();
+            obj.onload = function(data) {
+              var image = document.getElementById("image");
+              // alert(data.target.result);
+              image.src = data.target.result;
+              image.style.display = "block";
+            }
+
+            obj.readAsDataURL(this.files[0]);
+          }
+        }
+
+        function showImage1()
+        {
+          if (this.files && this.files[0]) {
+            var obj = new FileReader();
+            obj.onload = function(data) {
+              var image = document.getElementById("image1");
+              // alert(data.target.result);
+              image.src = data.target.result;
+              image.style.display = "inline";
+            }
+
+            obj.readAsDataURL(this.files[0]);
+          }
+        }
+
+        function showImage2()
+        {
+          if (this.files && this.files[0]) {
+            var obj = new FileReader();
+            obj.onload = function(data) {
+              var image = document.getElementById("image2");
+              // alert(data.target.result);
+              image.src = data.target.result;
+              image.style.display = "inline";
+            }
+
+            obj.readAsDataURL(this.files[0]);
+          }
+        }
+
+        function showImage3()
+        {
+          if (this.files && this.files[0]) {
+            var obj = new FileReader();
+            obj.onload = function(data) {
+              var image = document.getElementById("image3");
+              // alert(data.target.result);
+              image.src = data.target.result;
+              image.style.display = "inline";
+            }
+
+            obj.readAsDataURL(this.files[0]);
+          }
+        }
+      </script>
+
+
+
+
 @endsection

@@ -7,7 +7,7 @@
                     <label>Name</label>
                 </div>
                 <div class="col-md-6">
-                    <p>{{ Session::get('user_name') }}</p>
+                    <p>{{ $u_info->name }}</p>
                 </div>
             </div>
             <div class="row">
@@ -15,7 +15,7 @@
                     <label>Email</label>
                 </div>
                 <div class="col-md-6">
-                    <p>{{ Session::get('user_email') }}</p>
+                    <p>{{ $u_info->email }}</p>
                 </div>
             </div>
             <div class="row">
@@ -23,17 +23,9 @@
                     <label>Phone</label>
                 </div>
                 <div class="col-md-6">
-                    <p>{{ Session::get('user_mobile') }}</p>
+                    <p>{{ $u_info->mobile }}</p>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label>Profession</label>
-                </div>
-                <div class="col-md-6">
-                    <p>Web Developer and Designer</p>
-                </div>
-            </div>
+            </div>            
 </div>
 
 @endsection

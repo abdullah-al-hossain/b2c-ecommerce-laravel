@@ -7,6 +7,8 @@ use App\Category;
 use App\Manufacture;
 use App\Product;
 use App\Slider;
+use App\User;
+use Session;
 
 use DB;
 
@@ -16,13 +18,13 @@ class HomeController extends Controller
     {
       $products = DB::table('products')
                                     ->where('products.pub_stat', 1)
-                                    ->limit(9)
-                                    ->get();
+                                    ->paginate(12);
 
       $categories = DB::table('categories')->where('pub_stat', 1)->get();
       $manufactures = DB::table('manufactures')->where('pub_stat', 1)->get();
       $sliders = DB::table('sliders')->where('pub_stat', 1)->get();
       $slide_1 = 1;
+
       return view('pages.home_content', compact('categories', 'manufactures', 'products', 'sliders', 'slide_1'));
     }
 
@@ -37,6 +39,7 @@ class HomeController extends Controller
                                 ->get();
       $categories = DB::table('categories')->where('pub_stat', 1)->get();
       $manufactures = DB::table('manufactures')->where('pub_stat', 1)->get();
+
       return view('pages.product_by_cat', compact('categories', 'manufactures', 'products_by_cat'));
     }
 
@@ -56,6 +59,28 @@ class HomeController extends Controller
 
     public function show_product_details($product_id)
     {
+        $userId = Session::get('user_id');
+
+        if ($userId) {
+          $uid = Session::get('user_id');
+          $p_id = $product_id;
+          $event = "view";
+        //   $event = DB::table('event')->insert([
+        //               'uid' => $uid,
+        //               'p_id' => $p_id,
+        //               'event' => $event
+        //           ]);
+        }
+
+      $reviews = DB::table('reviews')
+                                    ->join('users', 'users.uid', '=', 'reviews.uid')
+                                    ->select('users.name', 'users.uid', 'reviews.created_at','reviews.id','reviews.review', 'reviews.updated_at')
+                                    ->where('reviews.p_id', $product_id)
+                                    ->limit(9)
+                                    ->get();
+      $r_count = count($reviews);
+
+
       $product = DB::table('products')
                                 ->join('categories', 'products.category_id', '=', 'categories.category_id')
                                 ->join('manufactures', 'products.man_id', '=', 'manufactures.man_id')
@@ -64,12 +89,14 @@ class HomeController extends Controller
                                 ->where('products.pub_stat', 1)
                                 ->limit(9)
                                 ->first();
+
+
       $categories = DB::table('categories')->where('pub_stat', 1)->get();
       $manufactures = DB::table('manufactures')->where('pub_stat', 1)->get();;
-      return view('pages.view_product', compact('categories', 'manufactures', 'product'));
+      return view('pages.view_product', compact('categories', 'manufactures', 'product', 'reviews', 'r_count'));
     }
 
-    public function range(Request $request)
+     public function range(Request $request)
     {
       $from = $request->from;
       $to = $request->to;
@@ -90,5 +117,39 @@ class HomeController extends Controller
       $categories = DB::table('categories')->where('pub_stat', 1)->get();
       $manufactures = DB::table('manufactures')->where('pub_stat', 1)->get();
       return view('pages.search_products', compact('categories', 'manufactures', 'products'));
+    }
+
+    public function delivery()
+    {
+      $categories = DB::table('categories')->where('pub_stat', 1)->get();
+      $manufactures = DB::table('manufactures')->where('pub_stat', 1)->get();
+      return view('delivery.user_show', compact('categories', 'manufactures'));
+    }
+
+    public function delivery_search(Request $request)
+    {
+      $categories = DB::table('categories')->where('pub_stat', 1)->get();
+      $manufactures = DB::table('manufactures')->where('pub_stat', 1)->get();
+
+      $dmen = DB::table('delivery_men')
+                                        ->where('pub_stat', 1)
+                                        ->where('area', $request->area)
+                                        ->get();
+
+      //return $dmen;
+
+      return view('delivery.user_show', compact('categories', 'manufactures', 'dmen'));
+    }
+
+
+    public function UserAuthCheck()
+    {
+      $userId = Session::get('user_id');
+
+      if ($userId) {
+        return;
+      } else {
+        return Redirect::to('/login_check')->send();
+      }
     }
 }

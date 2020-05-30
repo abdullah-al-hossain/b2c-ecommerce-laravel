@@ -12,7 +12,6 @@ class CartController extends Controller
 {
     public function add_to_cart(Request $request)
     {
-
       $qty = $request->qty;
       $product_info = DB::table('products')
                                   ->where('p_id', $request->product_id )
@@ -22,6 +21,8 @@ class CartController extends Controller
       $data['name'] = $product_info->product_name;
       $data['price'] = $product_info->product_price;
       $data['options']['image'] = $product_info->product_image;
+
+      $userId = Session::get('user_id');
 
       Cart::add($data);
         return Redirect::to('/show_cart');

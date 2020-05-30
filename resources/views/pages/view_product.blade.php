@@ -2,34 +2,86 @@
 @section('title')
 Product Details
 @endsection
+<style type="text/css">
+  .review {
+    background: #ccc;
+    margin-bottom: 20px;
+  }
+  .tiles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .tile {
+    position: relative;
+    overflow: hidden;
+    height: 250px;
+    width: auto;
+    cursor: zoom-in;
+  }
+
+  .photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+</style>
 @section('content')
+<?php
+use Carbon\Carbon;
+
+class BanglaConverter {
+	public static $bn = array("১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯", "০");
+	public static $en = array("1", "2", "3", "4", "5", "6", "7", "8", "9", "0");
+
+	public static function bn2en($number) {
+			return str_replace(self::$bn, self::$en, $number);
+	}
+
+	public static function en2bn($number) {
+			return str_replace(self::$en, self::$bn, $number);
+	}
+}
+ ?>
 				<div class="col-sm-9 padding-right">
 					<div class="product-details"><!--product-details-->
 						<div class="col-sm-5">
-							<div style="height: 300px;"class="view-product">
-								<img style="height: 150px;" src="{{ $product->product_image }}" alt="" />
-								<h3>ZOOM</h3>
+							<div style=" width: 100%;"class="view-product">
+								<div class="tile" data-scale="1.5" data-image="{{ $product->product_image }}"></div>
 							</div>
 							<div id="similar-product" class="carousel slide" data-ride="carousel">
 
 								  <!-- Wrapper for slides -->
 								    <div class="carousel-inner">
 										<div class="item active">
-										  <a href=""><img style="height: 80px;" src="{{ $product->product_image }}" alt="" /></a>
-										  <a href=""><img style="height: 80px;" src="{{ $product->product_image }}" alt="" /></a>
-										  <a href=""><img style="height: 80px;" src="{{ $product->product_image }}" alt="" /></a>
-										</div>
-										<div class="item">
-											<a href=""><img style="height: 80px;" src="{{ $product->product_image }}" alt="" /></a>
-										  <a href=""><img style="height: 80px;" src="{{ $product->product_image }}" alt="" /></a>
-										  <a href=""><img style="height: 80px;" src="{{ $product->product_image }}" alt="" /></a>
-										</div>
-										<div class="item">
-											<a href=""><img style="height: 80px;" src="{{ $product->product_image }}" alt="" /></a>
-										  <a href=""><img style="height: 80px;" src="{{ $product->product_image }}" alt="" /></a>
-										  <a href=""><img style="height: 80px;" src="{{ $product->product_image }}" alt="" /></a>
-										</div>
+										@if($product->product_image1 == NULL)
+											<img style="height: 80px;" src="{{ asset('/image/prod_surroun_images/prod_default.jpg') }}" alt="" />
+										@else
+										  <a href="{{ $product->product_image1 }}" data-lightbox="gal"><img style="height: 80px;" src="{{ $product->product_image1 }}" alt="" /></a>
+										@endif
 
+
+										@if($product->product_image2 == NULL)
+
+										@else
+										  <a href="{{ $product->product_image2 }}" data-lightbox="gal"><img style="height: 80px;" src="{{ $product->product_image2 }}" alt="" /></a>
+										@endif
+
+										 @if($product->product_image3 == NULL)
+
+										@else
+										  <a href="{{ $product->product_image3 }}" data-lightbox="gal"><img style="height: 80px;" src="{{ $product->product_image3 }}" alt="" /></a>
+										@endif
+										</div>
 									</div>
 
 								  <!-- Controls -->
@@ -44,10 +96,9 @@ Product Details
 						</div>
 						<div class="col-sm-7">
 							<div class="product-information"><!--/product-information-->
-								<img src="images/product-details/new.jpg" class="newarrival" alt="" />
 								<h2>{{ $product->product_name }}</h2>
-								<p>Web ID: 1089772</p>
-								<img src="{{URL::to('frontend/images/product-details/rating.png') }}" alt="" />
+								<p>Product ID: {{ $product->p_id }}</p>
+								<img src="{{URL::to('frontend/images/product-details/rating.png') }}" alt=""/>
 								<span>
 									<span>BN {{ $product->product_price }}/=</span>
 									<form action="/add_to_cart" method="POST">
@@ -66,7 +117,6 @@ Product Details
 								<p><b>Brand:</b> {{ $product->man_name }}</p>
                 <p><b>Category:</b> {{ $product->name }}</p>
                 <p><b>Size:</b> {{ $product->product_size }}</p>
-								<a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
 							</div><!--/product-information-->
 						</div>
 					</div><!--/product-details-->
@@ -77,7 +127,7 @@ Product Details
 								<li><a href="#details" data-toggle="tab">Details</a></li>
 								<li><a href="#companyprofile" data-toggle="tab">Company Profile</a></li>
 								<li><a href="#tag" data-toggle="tab">Tag</a></li>
-								<li class="active"><a href="#reviews" data-toggle="tab">Reviews (5)</a></li>
+								<li class="active"><a href="#reviews" data-toggle="tab">Reviews ( {{$r_count}} )</a></li>
 							</ul>
 						</div>
 						<div class="tab-content">
@@ -101,32 +151,98 @@ Product Details
 
 							<div class="tab-pane fade active in" id="reviews" >
 								<div class="col-sm-12">
-									<ul>
-										<li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
-										<li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
-										<li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
-									</ul>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-									<p><b>Write Your Review</b></p>
+                  <p><b>Write Your Review</b></p>
 
-									<form action="#">
+									<form action="/reviews" method="post">
+                    {{ csrf_field() }}
 										<span>
-											<input type="text" placeholder="Your Name"/>
-											<input type="email" placeholder="Email Address"/>
+											<input name="uid" type="hidden" value="{{ Session::get('user_id')}}"/>
+											<input name="p_id" type="hidden" value="{{ $product->p_id }}"/>
 										</span>
-										<textarea name="" ></textarea>
-										<b>Rating: </b> <img src="images/product-details/rating.png" alt="" />
-										<button type="button" class="btn btn-default pull-right">
+										<textarea name="review"></textarea>
+										<button type="submit" class="btn btn-default pull-right">
 											Submit
 										</button>
-									</form>
+									</form><br><br>
+                  @foreach($reviews as $review)
+                  <div class="review">
+									<ul style="background: #333; padding:10px;">
+										<li><a href=""><i class="fa fa-user"></i><span style="color: #fff;">{{ $review->name }}</span></a></li>
+										<li><a href=""><i class="fa fa-clock-o"></i><span style="color: #fff;">{{ \Carbon\Carbon::parse($review->created_at)->diffForHumans(Carbon::now()) }}</span></a></li>
+                    @if($review->uid == Session::get('user_id'))
+                    <li class="pull-right">
+                      <a href='/del_review/{{ $review->id }}/{{ $product->p_id }}' id="delete" style="color:#DC3545!important;"><i class="fa fa-trash" style="color:#DC3545!important;"></i>Delete</a>
+                    </li>
+                    <li class="pull-right">
+                      <a data-toggle="modal" data-target="#edit{{ $review->id }}" href='/edit_review/{{ $review->id }}/{{ $product->p_id }}'><i class="fa fa-edit"></i>Edit</a>
+                    </li>
+                    <div class="modal fade" id="edit{{ $review->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-user-edit"></i>&nbsp;Edit</h5>
+                      <button type="button" class="pull-right" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <form action="/review_update" method="POST">
+                      {{ csrf_field() }}
+                      <div class="modal-body">
+                          <div class="form-group">
+                              <input type="hidden" name="review_id" value="{{ $review->id }}" />
+                              <input type="hidden" name="p_id" value="{{ $product->p_id }}" />
+                              <label for="first_name">Review:<span class="required"></span></label>
+                              <textarea placeholder="First Name" id="first_name" name="review" spellcheck="false" class="form-control">{{ $review->review }}</textarea>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary">Reset All Info</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                      </div>
+
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    @endif
+									</ul>
+									<p>{{ $review->review }}</p>
+                  </div>
+                  @endforeach
 								</div>
 							</div>
-
 						</div>
 					</div><!--/category-tab-->
 				</div>
 			</div>
 		</div>
 	</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript">
+
+  $('.tile')
+    // tile mouse actions
+    .on('mouseover', function(){
+      $(this).children('.photo').css({'transform': 'scale('+ $(this).attr('data-scale') +')'});
+    })
+    .on('mouseout', function(){
+      $(this).children('.photo').css({'transform': 'scale(1)'});
+    })
+    .on('mousemove', function(e){
+      $(this).children('.photo').css({'transform-origin': ((e.pageX - $(this).offset().left) / $(this).width()) * 100 + '% ' + ((e.pageY - $(this).offset().top) / $(this).height()) * 100 +'%'});
+    })
+    // tiles set up
+    .each(function(){
+      $(this)
+        // add a photo container
+        .append('<div class="photo"></div>')
+        // some text just to show zoom level on current item in this example
+
+        // set up a background image for each tile based on data-image attribute
+        .children('.photo').css({'background-image': 'url('+ $(this).attr('data-image') +')'});
+    })
+
+</script>
+
 @endsection

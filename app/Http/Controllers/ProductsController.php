@@ -47,6 +47,37 @@ class ProductsController extends Controller
 
     $data['pub_stat'] = $pub_stat;
 
+    if ($request->hasFile('product_image1')) {
+      $image = $request->file('product_image1');
+      $filename = time().'1.'.$image->getClientOriginalExtension();
+      $success = Image::make($image)->resize(268, 249)->save( public_path('/image/prod_surroun_images/'.$filename));
+      $image_url = '/image/prod_surroun_images/'.$filename;
+      if ($success) {
+        $data['product_image1'] = $image_url;
+      }
+    }
+
+    if ($request->hasFile('product_image2')) {
+      $image = $request->file('product_image2');
+      $filename = time().'2.'.$image->getClientOriginalExtension();
+      $success = Image::make($image)->resize(268, 249)->save( public_path('/image/prod_surroun_images/'.$filename));
+      $image_url = '/image/prod_surroun_images/'.$filename;
+      if ($success) {
+        $data['product_image2'] = $image_url;
+      }
+    }
+
+
+    if ($request->hasFile('product_image3')) {
+      $image = $request->file('product_image3');
+      $filename = time().'3.'.$image->getClientOriginalExtension();
+      $success = Image::make($image)->resize(268, 249)->save( public_path('/image/prod_surroun_images/'.$filename));
+      $image_url = '/image/prod_surroun_images/'.$filename;
+      if ($success) {
+        $data['product_image3'] = $image_url;
+      }
+    }
+
     if ($request->hasFile('product_image')) {
       $image = $request->file('product_image');
       $filename = time().'.'.$image->getClientOriginalExtension();
@@ -65,7 +96,13 @@ class ProductsController extends Controller
                   DB::table('products')->insert($data);
                   Session::put('message', 'Product Added successfully without any image!!');
                   return Redirect::to('/all_products');
+
   }
+
+
+
+
+
   // ***************************
   public function edit($p_id)
   {
@@ -86,7 +123,7 @@ class ProductsController extends Controller
       } else {
         $pub_stat = 1;
       }
-      
+
       $prodUpdate->update([
           'product_name' => $request->input('product_name'),
           'category_id' => $request->input('category_id'),
@@ -158,4 +195,20 @@ class ProductsController extends Controller
       return Redirect::to('/admin')->send();
     }
   }
+
+  /// For API  
+
+  // public function apiupdate(Request $request, Article $article)
+  // {
+  //     $article->update($request->all());
+
+  //     return response()->json($article, 200);
+  // }
+
+  // public function delete(Article $article)
+  // {
+  //     $article->delete();
+
+  //     return response()->json(null, 204);
+  // }
 }

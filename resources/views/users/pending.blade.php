@@ -2,45 +2,64 @@
 
 @section('content')
 
-<?php  
+<?php
   $i = 1;
  ?>
-<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+<div id="accordion">
   <h1 class="text-center">Order Status: <span class = "text-warning">Pending Orders</span></h1>
   <ul>
   @foreach($all_orders_info as $order)
-    @if($order->order_status == 'pending')
-        <li style="font-size: 20px; color: violet;">Order: {{ $i++ }}</li>
-        <?php
+  @if($order->order_status == 'pending')
+  <div class="card">
+  <div class="card-header" id="headingOne">
+    <h5 class="mb-0">
+      <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{$i}}" aria-expanded="true" aria-controls="#collapse{{$i}}">
+        Order: {{ $i }} <span style="margin-left: 20px;">- Total Price: {{ $order->order_total }}/=</span>
+      </button>
+    </h5>
+  </div>
 
-        $all_bought_products = DB::table('orders')
-                                            ->join('orderdetails', 'orders.order_id', '=', 'orderdetails.order_id')
-                                            ->select('orders.*', 'orderdetails.*')
-                                            ->where('orders.order_id', $order->order_id)
-                                            ->get();
-        ?>
-        <table border="1" class="table table-striped table-bordered bootstrap-datatable datatable">
+  <div
+    id="collapse{{$i++}}" class="collapse"
+    aria-labelledby="headingOne"
+    data-parent="#accordion"
+  >
+    <div class="card-body">
+      <?php
+
+      $all_bought_products = DB::table('orders')
+                                          ->join('orderdetails', 'orders.order_id', '=', 'orderdetails.order_id')
+                                          ->select('orders.*', 'orderdetails.*')
+                                          ->where('orders.order_id', $order->order_id)
+                                          ->get();
+      ?>
+      <table
+      class="table table-striped table-bordered bootstrap-datatable datatable"
+      border="1">
+        <tr>
+          <th>Product Name</th>
+          <th>Product Price</th>
+          <th>Product Qty.</th>
+          <th>Total</th>
+        </tr>
+        @foreach($all_bought_products as $product)
           <tr>
-            <th>Product Name</th>
-            <th>Product Price</th>
-            <th>Product Qty.</th>
-            <th>Total</th>
+              <td>{{ $product->product_name  }}</td>
+              <td>{{ $product->product_price  }}</td>
+              <td>{{ $product->product_sales_quantity  }}</td>
+              <td>{{ $product->product_price*$product->product_sales_quantity  }}</td>
           </tr>
-          @foreach($all_bought_products as $product)
-            <tr>
-                <td>{{ $product->product_name  }}</td>
-                <td>{{ $product->product_price  }}</td>
-                <td>{{ $product->product_sales_quantity  }}</td>
-                <td>{{ $product->product_price*$product->product_sales_quantity  }}</td>
-            </tr>
-          @endforeach
-          <tr>
-            <td colspan="3">Total</td>
-            <td>{{ $order->order_total }}</td>
-          </tr>
-        </table>
-        <hr>
-    @endif
+        @endforeach
+        <tr>
+          <td colspan="3">Total</td>
+          <td>{{ $order->order_total }}</td>
+        </tr>
+      </table>
+      <hr>
+    </div>
+  </div>
+</div>
+  @endif
   @endforeach
   </ul>
 </div>

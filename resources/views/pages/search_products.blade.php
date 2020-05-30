@@ -4,10 +4,24 @@ Search Results
 @endsection
 
 @section('content')
+<?php
+class BanglaConverter {
+  public static $bn = array("১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯", "০");
+  public static $en = array("1", "2", "3", "4", "5", "6", "7", "8", "9", "0");
+
+  public static function bn2en($number) {
+      return str_replace(self::$bn, self::$en, $number);
+  }
+
+  public static function en2bn($number) {
+      return str_replace(self::$en, self::$bn, $number);
+  }
+}
+ ?>
 <h2 class="title text-center" style="color: #0069D9;">Search Results</h2>
 <div class="col-sm-12">
   @foreach($products as $product)
-  <div class="col-sm-4">
+  <div class="col-sm-3">
     <div class="product-image-wrapper" style="border-radius: 30px; border: 1px solid #888;">
       <div class="single-products" style="border-radius: 30px;">
           <div class="productinfo text-center">
@@ -15,7 +29,6 @@ Search Results
             <h4 style="color: #888; padding:0; margin:0;">{{ $product->product_name }}</h4>
             <h2>Price: {{ $product->product_price }}/=</h2>
             <hr>
-            <p>{{ $product->short_desc}}</p>
             <form action="/add_to_cart" method="POST">
               {{ csrf_field() }}
               <input name="qty" type="hidden" value="1" />

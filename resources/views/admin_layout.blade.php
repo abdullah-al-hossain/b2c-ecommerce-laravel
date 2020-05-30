@@ -345,8 +345,15 @@
 						<li>
 							<a class="dropmenu" href="#"><i class="icon-folder-close-alt"></i><span class="hidden-tablet"> Product</span><span class="label label-important"> new </span></a>
 							<ul>
-								<li><a class="submenu" href="all_products"><i class="icon-file-alt"></i><span class="hidden-tablet"> All Product</span></a></li>
-								<li><a class="submenu" href="add_product"><i class="icon-file-alt"></i><span class="hidden-tablet"> Add Products</span></a></li>
+								<li><a class="submenu" href="/all_products"><i class="icon-file-alt"></i><span class="hidden-tablet"> All Product</span></a></li>
+								<li><a class="submenu" href="/add_product"><i class="icon-file-alt"></i><span class="hidden-tablet"> Add Products</span></a></li>
+							</ul>
+						</li>
+						<li>
+							<a class="dropmenu" href="#"><i class="icon-folder-close-alt"></i><span class="hidden-tablet"> Delivery Man</span><span class="label label-important"> new </span></a>
+							<ul>
+								<li><a class="submenu" href="/all_d_men"><i class="icon-file-alt"></i><span class="hidden-tablet"> All Delivery Men</span></a></li>
+								<li><a class="submenu" href="/add_d_man"><i class="icon-file-alt"></i><span class="hidden-tablet"> Add Delivery Man</span></a></li>
 							</ul>
 						</li>
 						<li>
