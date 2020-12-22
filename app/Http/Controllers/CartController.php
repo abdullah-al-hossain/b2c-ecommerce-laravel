@@ -38,7 +38,7 @@ class CartController extends Controller
       Session::put('page', 'cart');
       $categories = DB::table('categories')->where('pub_stat', 1)->get();
       $manufactures = DB::table('manufactures')->where('pub_stat', 1)->get();
-      return view('pages.add_to_cart', compact('categories', 'manufactures', 'cartPage'));
+      return view('pages.add_to_cart', compact('categories', 'manufactures'));
     }
 
     public function delete($rowId)
