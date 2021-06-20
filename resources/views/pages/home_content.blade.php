@@ -36,7 +36,7 @@ class BanglaConverter {
 
           <h2>মূল্য:<?php echo BanglaConverter::en2bn($product->product_price); ?>৳</h2>
           <hr>
-          <form action="/add_to_cart" method="POST">
+          <form action="{{URL::to('/add_to_cart')}}" method="POST">
             {{ csrf_field() }}
             <input name="qty" type="hidden" value="1" />
             <input type="hidden" name="product_id" value="{{ $product->p_id }}">
@@ -56,7 +56,7 @@ class BanglaConverter {
             <h2 style="padding: 0; margin: 0;">{{ $product->product_name }}</h2>
             <p>{{$product->short_desc}}</p>
             <h3 style="padding: 0; margin: 0;"><?php echo BanglaConverter::en2bn($product->product_price); ?>৳</h3>
-            <form action="/add_to_cart" method="POST">
+            <form action="{{URL::to('/add_to_cart')}}" method="POST">
               {{ csrf_field() }}
               <input name="qty" type="hidden" value="1" />
               <input type="hidden" name="product_id" value="{{ $product->p_id }}">

@@ -12,16 +12,16 @@
     <title>
       @yield('title')
     </title>
-    <link rel="icon" href="{{ asset('frontend/images/home/logo.png') }}" type="image/gif" sizes="16x16">
+    <link rel="icon" href="{{ my_asset('frontend/images/home/logo.png') }}" type="image/gif" sizes="16x16">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
-    <link href="{{asset('frontend/css/lightbox.min.css')}}" rel="stylesheet">
-    <link href="{{asset('frontend/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('frontend/css/font-awesome.min.css')}}" rel="stylesheet">
-    <link href="{{asset('frontend/css/prettyPhoto.css')}}" rel="stylesheet">
-    <link href="{{asset('frontend/css/price-range.css')}}" rel="stylesheet">
-    <link href="{{asset('frontend/css/animate.css')}}" rel="stylesheet">
-	<link href="{{asset('frontend/css/main.css')}}" rel="stylesheet">
-	<link href="{{asset('frontend/css/responsive.css')}}" rel="stylesheet">
+    <link href="{{my_asset('frontend/css/lightbox.min.css')}}" rel="stylesheet">
+    <link href="{{my_asset('frontend/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{my_asset('frontend/css/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{my_asset('frontend/css/prettyPhoto.css')}}" rel="stylesheet">
+    <link href="{{my_asset('frontend/css/price-range.css')}}" rel="stylesheet">
+    <link href="{{my_asset('frontend/css/animate.css')}}" rel="stylesheet">
+	<link href="{{my_asset('frontend/css/main.css')}}" rel="stylesheet">
+	<link href="{{my_asset('frontend/css/responsive.css')}}" rel="stylesheet">
 
   <style media="screen">
     body {
@@ -162,7 +162,7 @@
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
-    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="shortcut icon" href="{{URL::to('images/ico/favicon.ico')}}">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{URL::to('frontend/images/ico/apple-touch-icon-144-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{URL::to('frontend/images/ico/apple-touch-icon-114-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{URL::to('frontend/images/ico/apple-touch-icon-72-precomposed.png')}}">
@@ -230,7 +230,7 @@
 						<div class="logo pull-left" style="color: #45645e;">
               <!-- <a href=""><b>ECommerce</b> <br/> <b>Website</b></a> -->
 
-							<a href="/"><img src="{{ URL::asset('frontend/images/home/logo.png') }}" alt="" style="width:70px; height: 70px;"/><span style="font-size: 20px;"><i><b>Bayyeenah</b></i></span></a>
+							<a href="{{URL::to('/')}}"><img src="{{ my_asset('frontend/images/home/logo.png') }}" alt="" style="width:70px; height: 70px;"/><span style="font-size: 20px;"><i><b>Bayyeenah</b></i></span></a>
 						</div>
 						<div class="btn-group pull-right">
 							<!-- <div class="btn-group">
@@ -271,7 +271,7 @@
                   style="background: #666; color:white; padding:0 10px; border-radius: 5px;"
                   {{ Session::forget('page') }}
                   @endif
-                href="/show_cart"><i class="fa fa-shopping-cart"></i> <b>আপনার ঝুড়ি</b> &nbsp;&nbsp;।
+                href="{{URL::to('/show_cart')}}"><i class="fa fa-shopping-cart"></i> <b>আপনার ঝুড়ি</b> &nbsp;&nbsp;।
                   @if( Cart::count() > 0)
                   <span class="badge badge-primary">{{ Cart::count() }}</span>
                   @endif
@@ -283,7 +283,7 @@
                   style="background: #666; color:white; padding:0 10px; border-radius: 5px;"
                   {{ Session::forget('page') }}
                   @endif
-                href="/login_check"><i class="fa fa-lock"></i><b>লগ ইন</b></a></li>
+                href="{{URL::to('/login_check')}}"><i class="fa fa-lock"></i><b>লগ ইন</b></a></li>
                 @else
                   @if($shipping_id == NULL)
 								          <li><a
@@ -340,7 +340,7 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="/" class="active">হোম ।</a></li>
+								<li><a href="{{URL::to('/')}}" class="active">হোম ।</a></li>
                 <li class="dropdown"><a href="#">প্রকাশনীসমূহ<i class="fa fa-angle-down"></i> ।</a>
                     <ul role="menu" class="sub-menu">
                       @foreach($manufactures as $manufacture)
@@ -348,7 +348,7 @@
                       @endforeach
                     </ul>
                 </li>
-                <li><a href="/delivery_man">ডেলিভারি ম্যান</a></li>
+                <li><a href="{{URL::to('/delivery_man')}}">ডেলিভারি ম্যান</a></li>
 							</ul>
 						</div>
 					</div>
@@ -425,18 +425,18 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <script src="{{asset('frontend/js/lightbox-plus-jquery.min.js')}}"></script>
-    <script src="{{asset('frontend/js/jquery.js')}}"></script>
-    <script src="{{asset('frontend/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('frontend/js/jquery.scrollUp.min.js')}}"></script>
-    <script src="{{asset('frontend/js/price-range.js')}}"></script>
-    <script src="{{asset('frontend/js/jquery.prettyPhoto.js')}}"></script>
-    <script src="{{asset('frontend/js/main.js')}}"></script>
+    <script src="{{my_asset('frontend/js/lightbox-plus-jquery.min.js')}}"></script>
+    <script src="{{my_asset('frontend/js/jquery.js')}}"></script>
+    <script src="{{my_asset('frontend/js/bootstrap.min.js')}}"></script>
+    <script src="{{my_asset('frontend/js/jquery.scrollUp.min.js')}}"></script>
+    <script src="{{my_asset('frontend/js/price-range.js')}}"></script>
+    <script src="{{my_asset('frontend/js/jquery.prettyPhoto.js')}}"></script>
+    <script src="{{my_asset('frontend/js/main.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
     <script>
       baguetteBox.run('.tz-gallery');
     </script>
-    <script type="text/javascript" src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js')}}">
+    <script type="text/javascript" src="{{my_asset('https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js')}}">
     </script>
     <script type="text/javascript">
       $(document).on("click", "#delete", function(e) {

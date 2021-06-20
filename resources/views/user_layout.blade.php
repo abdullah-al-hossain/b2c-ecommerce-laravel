@@ -44,9 +44,9 @@
                     </div>
                     <div class="col-md-6">
                         <div class="profile-head">
-                                    <form action="/edit_user_profile" method="GET">
+                                    <form action="{{URL::to('/edit_user_profile')}}" method="GET">
                                         {{ csrf_field() }}
-                                        <a href="/edit_user_profile" class="btn btn-default">Edit Profile</a>
+                                        <a href="{{URL::to('/edit_user_profile')}}" class="btn btn-default">Edit Profile</a>
                                     </form>
                                     <div style="overflow: hidden;">
                                       <a class="btn btn-default" href="{{URL::to('/')}}"><i class="fa fa-lock"></i> Home</a>
@@ -66,9 +66,9 @@
                         <div class="profile-work">
 
                             <p>You orders</p>
-                            <a href="/user_confirmed_orders">Confirmed<span class="badge badge-success" style="padding: 7px; font-size: 13px">{{ count($confirm) }}</span></a><br/>
-                            <a href="/pending_orders">Pending<span class="badge badge-info" style="padding: 7px; font-size: 13px">{{ count($pending) }}</span></a><br/>
-                            <a href="/canceled_orders">Canceled<span class="badge badge-danger" style="padding: 7px; font-size: 13px">{{ count($canceled) }}</span></a>
+                            <a href="{{URL::to('/user_confirmed_orders')}}">Confirmed<span class="badge badge-success" style="padding: 7px; font-size: 13px">{{ count($confirm) }}</span></a><br/>
+                            <a href="{{URL::to('/pending_orders')}}">Pending<span class="badge badge-info" style="padding: 7px; font-size: 13px">{{ count($pending) }}</span></a><br/>
+                            <a href="{{URL::to('/canceled_orders')}}">Canceled<span class="badge badge-danger" style="padding: 7px; font-size: 13px">{{ count($canceled) }}</span></a>
                         </div>
                     </div>
                     <div class="col-md-8">

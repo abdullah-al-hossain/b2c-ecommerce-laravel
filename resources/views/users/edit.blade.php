@@ -2,7 +2,7 @@
 
 @section('content')
   <h1>Edit your profile</h1>
-  <form class="form" action="/edit_user_profile" method="post" enctype="multipart/form-data">
+  <form class="form" action="{{URL::to('/edit_user_profile')}}" method="post" enctype="multipart/form-data">
       {{ csrf_field() }}
       Name:
       <input type="text" name="name" value="{{ $u_info->name }}"><br><br>
@@ -14,6 +14,7 @@
       Profile Pcture:   <br>
       <input onchange="showImage.call(this)" type="file" name="u_image"><br><br>
       <img src="" style="display: none; height:auto; width: 33%;"  id="image1">
+      
       <script type="text/javascript">
         function showImage()
         {
