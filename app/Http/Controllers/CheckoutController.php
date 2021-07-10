@@ -135,7 +135,37 @@ class CheckoutController extends Controller
     public function payment_insert(Request $request)
     {
       $this->UserAuthCheck();
+
+      if($request->payment_gateway == 'bkash') {
+        dd('bkash');
+      } else if($request->payment_gateway == 'ppal') {
+        dd('pay_pal');
+      } else if($request->payment_gateway == 'hcash') {
+        $this->store_order($request);
+      }
+
       $contents = Cart::content();
+            
+
+      if ($request->payment_gateway == 'hcash') {
+          $message = 'hcash';
+          Cart::destroy();
+      } elseif ($request->payment_gateway == 'bkash') {
+          $message = 'bkash';
+          Cart::destroy();
+      } elseif ($request->payment_gateway == 'ppal') {
+          $message = 'ppal';
+          Cart::destroy();
+      }
+
+      Session::forget('shipping_id');
+
+      return Redirect::to('/')
+                        ->with('message', $message);
+    }
+
+    public function store_order($request)
+    {
       $payment_gateway = $request->payment_gateway;
 
       $pdata = array();
@@ -170,36 +200,6 @@ class CheckoutController extends Controller
         DB::table('orderdetails')
                                 ->insert($odetails);
       }
-
-      $userId = Session::get('user_id');
-
-      if ($userId) {
-        $uid = Session::get('user_id');
-        $p_id = $request->product_id;
-        $event = "added to cart";
-
-        $event = DB::table('events')->insert([
-                    'uid' => $userId,
-                    'p_id' => 0,
-                    'event' => 'purchased',
-                ]);
-      }
-
-      if ($payment_gateway == 'hcash') {
-          $message = 'hcash';
-          Cart::destroy();
-      } elseif ($payment_gateway == 'bkash') {
-          $message = 'bkash';
-          Cart::destroy();
-      } elseif ($payment_gateway == 'ppal') {
-          $message = 'ppal';
-          Cart::destroy();
-      }
-
-      Session::forget('shipping_id');
-
-      return Redirect::to('/')
-                        ->with('message', $message);
     }
 
     // The function you see below was created for the purpose to see if the user is logged in or not

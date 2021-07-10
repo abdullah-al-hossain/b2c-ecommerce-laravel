@@ -47,7 +47,7 @@ class BanglaConverter {
           @foreach($contents as $content)
           <tr>
             <td class="cart_product">
-              <a href=""><img src="{{ $content->options->image}}" alt="" height="80px" width="80px"></a>
+              <a href=""><img src="{{ my_asset($content->options->image) }}" alt="" height="80px" width="80px"></a>
             </td>
             <td class="cart_description">
               <h4><a href="">{{ $content->name }}</a></h4>

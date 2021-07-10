@@ -47,7 +47,7 @@ class BanglaConverter {
           @foreach($contents as $content)
           <tr>
             <td class="cart_product">
-              <a href=""><img src="{{ $content->options->image}}" alt="" height="80px" width="80px"></a>
+              <a href=""><img src="{{ my_asset($content->options->image) }}" alt="" height="80px" width="80px"></a>
             </td>
             <td class="cart_description">
               <h4><a href="">{{ $content->name }}</a></h4>
@@ -82,9 +82,9 @@ class BanglaConverter {
 
     <form action="payment" method="post">
       {{ csrf_field() }}
-      <input type="radio" name="payment_gateway" value="bkash"> <img src="frontend/images/payment/bkash.png" alt="Bkash"><br>
-      <input type="radio" name="payment_gateway" value="ppal"> <img src="frontend/images/payment/ppal.png" alt="Paypal"><br>
-      <input type="radio" name="payment_gateway" value="hcash"> <img src="frontend/images/payment/hcash.jpg" height="100" width="120" alt="Hand Cash"><br>
+      <input type="radio" name="payment_gateway" value="bkash"> <img src="{{ my_asset('frontend/images/payment/bkash.png') }}" alt="Bkash"><br>
+      <input type="radio" name="payment_gateway" value="ppal"> <img src="{{ my_asset('frontend/images/payment/ppal.png') }}" alt="Paypal"><br>
+      <input type="radio" name="payment_gateway" value="hcash"> <img src="{{ my_asset('frontend/images/payment/hcash.jpg') }}'" height="100" width="120" alt="Hand Cash"><br>
       <button type="submit" class="btn btn-default">Complete Purchase</button>
     </form>
   </div>
