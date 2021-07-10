@@ -56,7 +56,7 @@ class BanglaConverter {
 					<div class="product-details"><!--product-details-->
 						<div class="col-sm-5">
 							<div style=" width: 100%;"class="view-product">
-								<div class="tile" data-scale="1.5" data-image="{{ $product->product_image }}"></div>
+								<div class="tile" data-scale="1.5" data-image="{{ my_asset($product->product_image) }}"></div>
 							</div>
 							<div id="similar-product" class="carousel slide" data-ride="carousel">
 
@@ -64,22 +64,22 @@ class BanglaConverter {
 								    <div class="carousel-inner">
 										<div class="item active">
 										@if($product->product_image1 == NULL)
-											<img style="height: 80px;" src="{{ asset('/image/prod_surroun_images/prod_default.jpg') }}" alt="" />
+											<img style="height: 80px;" src="{{ my_asset('/image/prod_surroun_images/prod_default.jpg') }}" alt="" />
 										@else
-										  <a href="{{ $product->product_image1 }}" data-lightbox="gal"><img style="height: 80px;" src="{{ $product->product_image1 }}" alt="" /></a>
+										  <a href="{{ $product->product_image1 }}" data-lightbox="gal"><img style="height: 80px;" src="{{ my_asset($product->product_image1) }}" alt="" /></a>
 										@endif
 
 
 										@if($product->product_image2 == NULL)
 
 										@else
-										  <a href="{{ $product->product_image2 }}" data-lightbox="gal"><img style="height: 80px;" src="{{ $product->product_image2 }}" alt="" /></a>
+										  <a href="{{ $product->product_image2 }}" data-lightbox="gal"><img style="height: 80px;" src="{{ my_asset($product->product_image2) }}" alt="" /></a>
 										@endif
 
 										 @if($product->product_image3 == NULL)
 
 										@else
-										  <a href="{{ $product->product_image3 }}" data-lightbox="gal"><img style="height: 80px;" src="{{ $product->product_image3 }}" alt="" /></a>
+										  <a href="{{ $product->product_image3 }}" data-lightbox="gal"><img style="height: 80px;" src="{{ my_asset($product->product_image3) }}" alt="" /></a>
 										@endif
 										</div>
 									</div>

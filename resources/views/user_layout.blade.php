@@ -6,7 +6,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="frontend/css/profile.css">
+<link rel="stylesheet" href="{{ my_asset('frontend/css/profile.css') }}">
 <title>User's Profile</title>
 <!------ Include the above in your HEAD tag ---------->
 </head>
@@ -37,15 +37,15 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
-                            <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/> -->
-                            <img src="image\user_images\<?php echo $user_image; ?>" alt="no IMAGE" style="width:235px; height: 240px;"/>
+
+                            <img src="{{ my_asset('image\user_images\\'.$user_image) }}" alt="no IMAGE" style="width:235px; height: 240px;"/>
 
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="profile-head">
                                     <form action="{{URL::to('/edit_user_profile')}}" method="GET">
-                                        {{ csrf_field() }}
+                                        @csrf
                                         <a href="{{URL::to('/edit_user_profile')}}" class="btn btn-default">Edit Profile</a>
                                     </form>
                                     <div style="overflow: hidden;">

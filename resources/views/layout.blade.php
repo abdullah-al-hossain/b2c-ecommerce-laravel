@@ -261,7 +261,7 @@
 							<ul class="nav navbar-nav">
                 @if(Session::get('user_id') != null)
                   @if(Session::get('user_image'))
-  								<li><a href="{{URL::to('/user_account')}}"><img src="/image/user_images/<?php echo Session::get('user_image'); ?>" style="width: 25px; height: 25px; border-radius: 50%; box-shadow: 2px 2px 10px 3px; margin-right:5px;" /> <b>প্রোফাইল</b>&nbsp;&nbsp; ।</a></li>
+  								<li><a href="{{URL::to('/user_account')}}"><img src="{{ my_asset('/image/user_images/'.Session::get('user_image')) }}" style="width: 25px; height: 25px; border-radius: 50%; box-shadow: 2px 2px 10px 3px; margin-right:5px;" /> <b>প্রোফাইল</b>&nbsp;&nbsp; ।</a></li>
                   @else
                   <li><a href="{{URL::to('/user_account')}}"><img src="/image/user_images/default.jpg" style="width: 25px; height: 25px; border-radius: 50%;" /> <b>প্রোফাইল</b>&nbsp;&nbsp; ।</a></li>
                   @endif

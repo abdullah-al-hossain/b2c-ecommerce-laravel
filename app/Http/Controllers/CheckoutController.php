@@ -95,8 +95,6 @@ class CheckoutController extends Controller
       // md5() is an encryption method . Now more advanced ones are deployed like the argon() hashing
       $user_pwd = md5($request->user_pwd);
 
-
-
       $result = DB::table('users')
                                 ->where('email', $user_email)
                                 ->where('password', $user_pwd)

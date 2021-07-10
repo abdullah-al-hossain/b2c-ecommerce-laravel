@@ -9,8 +9,8 @@ Login
       <div class="col-sm-3 col-sm-offset-1">
         <div class="login-form"><!--login form-->
           <h2>Login to your account</h2>
-          <form action="/user_login" method="POST">
-            {{ csrf_field() }}
+          <form action="{{ route('user_login') }}" method="POST">
+            @csrf
             <input type="email" placeholder="Email Address" name="user_email" required/>
             <input type="password" placeholder="Password" name="user_pwd" required/>
             <span>
@@ -27,7 +27,7 @@ Login
       <div class="col-sm-4">
         <div class="signup-form"><!--sign up form-->
           <h2>New User Signup!</h2>
-          <form action="{{url('/user_reg')}}" method="POST" onsubmit="return validation()">
+          <form action="{{route('user_reg')}}" method="POST" onsubmit="return validation()">
             {{ csrf_field() }}
             <input type="text" placeholder="Full Name" name="name" id="username"/>
             <span id="usererror" class="text-danger font-weight-bold"></span>

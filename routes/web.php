@@ -19,11 +19,11 @@
 // checkout routes go here
 
   Route::get('/login_check', 'CheckoutController@login_check');
-  Route::post('/user_reg', 'CheckoutController@user_reg');
+  Route::post('/user_reg', 'CheckoutController@user_reg')->name('user_reg');
   Route::get('/checkout', 'CheckoutController@checkout');
   Route::post('/save_shipping_details', 'CheckoutController@save_shipping_details');
-  Route::get('/user_logout', 'CheckoutController@logout');
-  Route::post('/user_login', 'CheckoutController@user_login');
+  Route::get('/user_logout', 'CheckoutController@logout')->name('logout');
+  Route::post('/user_login', 'CheckoutController@user_login')->name('user_login');
   Route::get('/payment', 'CheckoutController@payment');
   Route::post('/payment', 'CheckoutController@payment_insert');
 
